@@ -11,7 +11,7 @@
 # kpatch/kgit/kstable wich are either 0 (empty), rc (kpatch), git (kgit) 
 # or stable release (kstable)
 %define kpatch		0
-%define kstable		0
+%define kstable		1
 
 # kernel.org -gitX patch (only the number after "git")
 %define kgit		0
@@ -165,7 +165,13 @@ Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 %endif
 
 # patches to be added on stable updates
-Patch3:		net-gro-disable-gro-onlegacy-netif_rx-path.patch
+
+# other patches
+Patch101:	drm-split-out-the-mm-declarations-in-a-separate-header-add-atomic-operations.patch
+Patch102:	drm-add-a-tracker-for-global-objects.patch
+Patch103:	drm-export-hash-table-functionality.patch
+Patch104:	drm-add-unlocked-IOCTL-functionality-from-the-drm-repo.patch
+Patch105:	staging-add-intel-poulsbo-morrestown-drm-driver.patch
 
 #END
 ####################################################################
@@ -379,7 +385,8 @@ latest %{kname}-devel installed...
 %prep
 %setup -q -n %top_dir_name -c
 
-pushd %src_dir
+cd %{src_dir}
+
 %if %kpatch
 %patch1 -p1
 %endif
@@ -389,14 +396,15 @@ pushd %src_dir
 %if %kgit
 %patch2 -p1
 %endif
-popd
 
 # extra patches
-
-%patch3 -p1
+%patch101 -p1
+%patch102 -p1
+%patch103 -p1
+%patch104 -p1
+%patch105 -p1
 
 # PATCH END
-
 
 #
 # Setup Begin
@@ -408,7 +416,7 @@ install %{SOURCE20} %{build_dir}/linux-%{tar_ver}/arch/x86/configs/
 install %{SOURCE21} %{build_dir}/linux-%{tar_ver}/arch/x86/configs/
 
 # make sure the kernel has the sublevel we know it has...
-LC_ALL=C perl -p -i -e "s/^SUBLEVEL.*/SUBLEVEL = %{sublevel}/" linux-%{tar_ver}/Makefile
+LC_ALL=C perl -p -i -e "s/^SUBLEVEL.*/SUBLEVEL = %{sublevel}/" Makefile
 
 
 %build
