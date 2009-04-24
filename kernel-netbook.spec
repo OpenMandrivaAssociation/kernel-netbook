@@ -17,11 +17,12 @@
 %define kgit		0
 
 # this is the releaseversion
-%define mdvrelease 	1
+%define mdvrelease 	2
 
 # This is only to make life easier for people that creates derivated kernels
 # a.k.a name it kernel-tmb :)
-%define kname 		kernel-netbook
+%define ktag		netbook
+%define kname 		kernel-%{ktag}
 
 %define rpmtag		%distsuffix
 %if %kpatch
@@ -423,8 +424,8 @@ LC_ALL=C perl -p -i -e "s/^SUBLEVEL.*/SUBLEVEL = %{sublevel}/" Makefile
 # Common target directories
 %define _bootdir /boot
 %define _modulesdir /lib/modules
-%define _kerneldir /usr/src/%{kname}-%{buildrel}
-%define _develdir /usr/src/%{kname}-devel-%{buildrel}
+%define _kerneldir /usr/src/linux-%{kversion}-%{ktag}-%{buildrpmrel}
+%define _develdir /usr/src/linux-%{kversion}-%{ktag}-devel-%{buildrpmrel}
 
 
 # Directories definition needed for building
@@ -445,9 +446,9 @@ cd %{src_dir}
 
 # make sure EXTRAVERSION says what we want it to say
 %if %kstable
-	LC_ALL=C perl -p -i -e "s/^EXTRAVERSION.*/EXTRAVERSION = .%{kstable}-%{buildrpmrel}/" Makefile
+	LC_ALL=C perl -p -i -e "s/^EXTRAVERSION.*/EXTRAVERSION = .%{kstable}-%{ktag}-%{buildrpmrel}/" Makefile
 %else
-	LC_ALL=C perl -p -i -e "s/^EXTRAVERSION.*/EXTRAVERSION = -%{buildrpmrel}/" Makefile
+	LC_ALL=C perl -p -i -e "s/^EXTRAVERSION.*/EXTRAVERSION = -%{ktag}-%{buildrpmrel}/" Makefile
 %endif
 
 # Prepare the kernel
@@ -464,13 +465,17 @@ cd %{src_dir}
 
 # Install kernel
 install -d %{temp_boot}
-install -m 644 System.map %{temp_boot}/System.map-%{buildrel}
-install -m 644 .config %{temp_boot}/config-%{buildrel}
-cp -f arch/%{target_arch}/boot/bzImage %{temp_boot}/vmlinuz-%{buildrel}
+install -m 644 System.map \
+               %{temp_boot}/System.map-%{kversion}-%{ktag}-%{buildrpmrel}
+install -m 644 .config %{temp_boot}/config-%{kversion}-%{ktag}-%{buildrpmrel}
+cp -f arch/%{target_arch}/boot/bzImage \
+      %{temp_boot}/vmlinuz-%{kversion}-%{ktag}-%{buildrpmrel}
 
 # Install modules
-install -d %{temp_modules}/%{buildrel}
-%smake INSTALL_MOD_PATH=%{temp_root} KERNELRELEASE=%{buildrel} modules_install 
+install -d %{temp_modules}/%{kversion}-%{ktag}-%{buildrpmrel}
+%smake INSTALL_MOD_PATH=%{temp_root} \
+       KERNELRELEASE=%{kversion}-%{ktag}-%{buildrpmrel} \
+       modules_install
 
 # remove /lib/firmware, we use a separate kernel-firmware
 rm -rf %{temp_root}/lib/firmware
@@ -492,7 +497,7 @@ cp -fR scripts %{temp_devel}
 	
 # Needed for generation of kernel/bounds.s
 cp -fR kernel/bounds.c %{temp_devel}/kernel/
-	
+
 # Needed for lguest
 cp -fR drivers/lguest/lg.h %{temp_devel}/drivers/lguest/
 	
@@ -522,7 +527,6 @@ patch -p1 -d %{temp_devel} -i %{SOURCE2}
 
 # Fix permissions
 chmod -R a+rX %{temp_devel}
-
 
 #make sure we are in the directory
 cd %src_dir
@@ -637,20 +641,22 @@ rm -rf %{buildroot}
 ### kernel
 %if %build_kernel
 %preun -n %{kname}-%{buildrel}
-/sbin/installkernel -R %{buildrel}
-if [ -L /lib/modules/%{buildrel}/build ]; then
-    rm -f /lib/modules/%{buildrel}/build
+/sbin/installkernel -R %{kversion}-%{ktag}-%{buildrpmrel}
+if [ -L /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/build ]; then
+    rm -f /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/build
 fi
-if [ -L /lib/modules/%{buildrel}/source ]; then
-    rm -f /lib/modules/%{buildrel}/source
+if [ -L /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/source ]; then
+    rm -f /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/source
 fi
 exit 0
 
 %post -n %{kname}-%{buildrel}
-/sbin/installkernel -L %{buildrel}
-if [ -d /usr/src/%{kname}-devel-%{buildrel} ]; then
-    ln -sf /usr/src/%{kname}-devel-%{buildrel} /lib/modules/%{buildrel}/build
-    ln -sf /usr/src/%{kname}-devel-%{buildrel} /lib/modules/%{buildrel}/source
+/sbin/installkernel -L %{kversion}-%{ktag}-%{buildrpmrel}
+if [ -d /usr/src/linux-%{kversion}-%{ktag}-devel-%{buildrpmrel} ]; then
+    ln -sf /usr/src/linux-%{kversion}-%{ktag}-devel-%{buildrpmrel} \
+           /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/build
+    ln -sf /usr/src/linux-%{kversion}-%{ktag}-devel-%{buildrpmrel} \
+           /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/source
 fi
 
 %postun -n %{kname}-%{buildrel}
@@ -662,18 +668,20 @@ fi
 %if %build_devel
 %post -n %{kname}-devel-%{buildrel}
 # place /build and /source symlinks in place.
-if [ -d /lib/modules/%{buildrel} ]; then
-    ln -sf /usr/src/%{kname}-devel-%{buildrel} /lib/modules/%{buildrel}/build
-    ln -sf /usr/src/%{kname}-devel-%{buildrel} /lib/modules/%{buildrel}/source
+if [ -d /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel} ]; then
+    ln -sf /usr/src/linux-%{kversion}-%{ktag}-devel-%{buildrpmrel} \
+           /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/build
+    ln -sf /usr/src/linux-%{kversion}-%{ktag}-devel-%{buildrpmrel} \
+           /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/source
 fi
 
 %preun -n %{kname}-devel-%{buildrel}
 # we need to delete <modules>/{build,source} at uninstall
-if [ -L /lib/modules/%{buildrel}/build ]; then
-    rm -f /lib/modules/%{buildrel}/build
+if [ -L /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/build ]; then
+    rm -f /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/build
 fi
-if [ -L /lib/modules/%{buildrel}/source ]; then
-    rm -f /lib/modules/%{buildrel}/source
+if [ -L /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/source ]; then
+    rm -f /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/source
 fi
 exit 0
 %endif #build_devel
@@ -682,27 +690,27 @@ exit 0
 ### kernel-source
 %if %build_source
 %post -n %{kname}-source-%{buildrel}
-for i in /lib/modules/%{buildrel}*; do
-	if [ -d $i ]; then
-		if [ ! -L $i/build -a ! -L $i/source ]; then
-			rm -f $i/{build,source}
-		        ln -sf /usr/src/%{kname}-%{buildrel} $i/build
-		        ln -sf /usr/src/%{kname}-%{buildrel} $i/source
-		fi
+if [ -d "/lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}" ]; then
+	if [ ! -L $i/build -a ! -L $i/source ]; then
+		rm -f $i/{build,source}
+	        ln -sf /usr/src/linux-%{kversion}-%{ktag}-%{buildrpmrel} \
+	               $i/build
+	        ln -sf /usr/src/linux-%{kversion}-%{ktag}-%{buildrpmrel} \
+	               $i/source
 	fi
-done
-								
+fi
+
 %preun -n %{kname}-source-%{buildrel}
-for i in /lib/modules/%{buildrel}/{build,source}; do
+for i in /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/{build,source}; do
 	if [ -L $i ]; then
-		if [ "$(readlink $i)" = "/usr/src/%{kname}-%{buildrel}" ]; then
+		if [ "$(readlink $i)" = "/usr/src/linux-%{kversion}-%{ktag}-%{buildrpmrel}" ]; then
 			rm -f $i
 		fi
 	fi
 done
 exit 0
 %endif # build_source
-												
+
 
 ###
 ### file lists
@@ -712,12 +720,12 @@ exit 0
 %if %build_kernel
 %files -n %{kname}-%{buildrel}
 %defattr(-,root,root)
-%{_bootdir}/config-%{buildrel}
-%{_bootdir}/vmlinuz-%{buildrel}
-%{_bootdir}/System.map-%{buildrel}
-%dir %{_modulesdir}/%{buildrel}/
-%{_modulesdir}/%{buildrel}/kernel
-%{_modulesdir}/%{buildrel}/modules.*
+%{_bootdir}/config-%{kversion}-%{ktag}-%{buildrpmrel}
+%{_bootdir}/vmlinuz-%{kversion}-%{ktag}-%{buildrpmrel}
+%{_bootdir}/System.map-%{kversion}-%{ktag}-%{buildrpmrel}
+%dir %{_modulesdir}/%{kversion}-%{ktag}-%{buildrpmrel}/
+%{_modulesdir}/%{kversion}-%{ktag}-%{buildrpmrel}/kernel
+%{_modulesdir}/%{kversion}-%{ktag}-%{buildrpmrel}/modules.*
 %doc README.kernel-sources
 %doc README.MandrivaLinux
 %endif # build_kernel
@@ -852,7 +860,7 @@ exit 0
 %files -n %{kname}-doc
 %defattr(-,root,root)
 %doc linux-%{tar_ver}/Documentation/*
-%endif # build_dov
+%endif # build_doc
 
 %if %build_kernel
 %files -n %{kname}-latest
