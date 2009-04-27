@@ -399,11 +399,13 @@ cd %{src_dir}
 %endif
 
 # extra patches
-%patch101 -p1
-%patch102 -p1
-%patch103 -p1
-%patch104 -p1
-%patch105 -p1
+
+# FIXME: poulsbo patches break dri/glx
+#patch101 -p1
+#patch102 -p1
+#patch103 -p1
+#patch104 -p1
+#patch105 -p1
 
 # PATCH END
 
