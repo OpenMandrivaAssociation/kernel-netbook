@@ -174,6 +174,10 @@ Patch103:	drm-export-hash-table-functionality.patch
 Patch104:	drm-add-unlocked-IOCTL-functionality-from-the-drm-repo.patch
 Patch105:	staging-add-intel-poulsbo-morrestown-drm-driver.patch
 
+# Atom support in coretemp
+# http://bugzilla.kernel.org/show_bug.cgi?id=11161
+Patch106:	hwmon-coretemp-atom.patch
+
 #END
 ####################################################################
 
@@ -406,6 +410,8 @@ cd %{src_dir}
 #patch103 -p1
 #patch104 -p1
 #patch105 -p1
+
+%patch106 -p1
 
 # PATCH END
 
