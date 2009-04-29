@@ -205,9 +205,9 @@ Source package to build the Linux kernel.
 Version:	%{fakever}
 Release:	%{fakerel}
 %ifarch %{ix86}
-Summary:	Linux Kernel for desktop use with i586 & 4GB RAM
+Summary:	Linux Kernel for netbook use with i586 & 4GB RAM
 %else
-Summary:	Linux Kernel for desktop use with %{_arch}
+Summary:	Linux Kernel for netbook use with %{_arch}
 %endif
 Group:		System/Kernel and hardware
 Provides:	%kprovides
@@ -231,7 +231,7 @@ This kernel relies on in-kernel smp alternatives to switch between
 up & smp mode depending on detected hardware. To force the kernel
 to boot in single processor mode, use the "nosmp" boot parameter.
 %else
-This kernel is compiled for desktop use, single or multiple %{_arch}
+This kernel is compiled for netbook use, single or multiple %{_arch}
 processor(s)/core(s), using HZ_1000, voluntary preempt, CFS cpu 
 scheduler and cfq i/o scheduler.
 This kernel relies on in-kernel smp alternatives to switch between 
@@ -263,7 +263,7 @@ Conflicts:	arch(x86_64)
 
 %description -n %{kname}-source-%{buildrel}
 The %{kname}-source package contains the source code files for the 
-Linux kernel. Theese source files are only needed if you want to build 
+Linux kernel. These source files are only needed if you want to build 
 your own custom kernel that is better tuned to your particular hardware.
 
 If you only want the files needed to build 3rdparty (nVidia, Ati, dkms-*,...)
