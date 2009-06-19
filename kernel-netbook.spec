@@ -178,6 +178,13 @@ Patch105:	staging-add-intel-poulsbo-morrestown-drm-driver.patch
 # http://bugzilla.kernel.org/show_bug.cgi?id=11161
 Patch106:	hwmon-coretemp-atom.patch
 
+# Make boot faster
+Patch107:	linux-2.6.29-retry-root-mount.patch
+Patch108:	linux-2.6.29-dont-wait-for-mouse.patch
+Patch109:	linux-2.6.29-enable-async-by-default.patch
+Patch110:	linux-2.6.29-flip-ide-net.patch
+Patch111:	linux-2.6.30-fix-async.patch
+
 #END
 ####################################################################
 
@@ -412,6 +419,11 @@ cd %{src_dir}
 #patch105 -p1
 
 %patch106 -p1
+%patch107 -p1
+%patch108 -p1
+%patch109 -p1
+%patch110 -p1
+%patch111 -p1
 
 # PATCH END
 
