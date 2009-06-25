@@ -11,13 +11,13 @@
 # kpatch/kgit/kstable wich are either 0 (empty), rc (kpatch), git (kgit) 
 # or stable release (kstable)
 %define kpatch		0
-%define kstable		4
+%define kstable		5
 
 # kernel.org -gitX patch (only the number after "git")
 %define kgit		0
 
 # this is the releaseversion
-%define mdvrelease 	2
+%define mdvrelease 	1
 
 # This is only to make life easier for people that creates derivated kernels
 # a.k.a name it kernel-tmb :)
@@ -514,15 +514,15 @@ cp -fR scripts %{temp_devel}
 	cp -fR arch/%{target_arch}/kernel/asm-offsets.{c,s} %{temp_devel}/arch/%{target_arch}/kernel/
 	cp -fR arch/%{target_arch}/include %{temp_devel}/arch/%{target_arch}/
 %endif
-	
+
 # Needed for generation of kernel/bounds.s
 cp -fR kernel/bounds.c %{temp_devel}/kernel/
 
 # Needed for lguest
 cp -fR drivers/lguest/lg.h %{temp_devel}/drivers/lguest/
-	
+
 cp -fR .config Module.symvers %{temp_devel}
-	
+
 # Needed for truecrypt build (Danny)
 cp -fR drivers/md/dm.h %{temp_devel}/drivers/md/
 
@@ -591,7 +591,7 @@ for i in alpha arm avr32 blackfin cris frv h8300 ia64 mips m32r m68k m68knommu \
 %if %build_devel
 	rm -rf %{target_devel}/arch/$i
 	rm -rf %{target_devel}/include/asm-$i
-%endif	
+%endif
 done
 
 # remove arch files based on target arch
