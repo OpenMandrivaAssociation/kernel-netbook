@@ -17,7 +17,7 @@
 %define kgit		0
 
 # this is the releaseversion
-%define mdvrelease 	1
+%define mdvrelease 	2
 
 # This is only to make life easier for people that creates derivated kernels
 # a.k.a name it kernel-tmb :)
@@ -184,6 +184,9 @@ Patch108:	linux-2.6.29-dont-wait-for-mouse.patch
 Patch109:	linux-2.6.29-enable-async-by-default.patch
 Patch110:	linux-2.6.29-flip-ide-net.patch
 Patch111:	linux-2.6.30-fix-async.patch
+
+# Support for via card reader (SD/MMC)
+Patch112:	mmc-add-VIA-MSP-card-reader-driver-support.patch
 
 #END
 ####################################################################
@@ -424,6 +427,7 @@ cd %{src_dir}
 %patch109 -p1
 %patch110 -p1
 %patch111 -p1
+%patch112 -p1
 
 # PATCH END
 
