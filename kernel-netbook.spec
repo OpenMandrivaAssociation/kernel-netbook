@@ -188,6 +188,21 @@ Patch111:	linux-2.6.30-fix-async.patch
 # Support for via card reader (SD/MMC)
 Patch112:	mmc-add-VIA-MSP-card-reader-driver-support.patch
 
+# Fixes from stable 2.6.30.2
+Patch113:	CVE-2009-1895_personality-fix-per_clear_on_setid.patch
+Patch114:	add-fno-delete-null-pointer-checks-to-gcc-cflags.patch
+Patch115:	block-restore-barrier-support-for-md-and-probably-other-virtual-devices.patch
+Patch116:	fix-iommu-address-space-allocation.patch
+Patch117:	floppy-fix-lock-imbalance.patch
+Patch118:	fuse-fix-bad-return-value-in-fuse_file_poll.patch
+Patch119:	fuse-fix-return-value-of-fuse_dev_write.patch
+Patch120:	futexes-fix-infinite-loop-in-get_futex_key-on-huge-page.patch
+Patch121:	kernel-resource.c-fix-sign-extension-in-reserve_setup.patch
+Patch122:	md-avoid-dereferencing-null-pointer-when-accessing-suspend_-sysfs-attributes.patch
+Patch123:	md-fix-error-path-when-duplicate-name-is-found-on-md-device-creation.patch
+Patch124:	md-raid5-suspend-shouldn-t-affect-read-requests.patch
+Patch125:	security-use-mmap_min_addr-indepedently-of-security-models.patch
+
 #END
 ####################################################################
 
@@ -428,6 +443,21 @@ cd %{src_dir}
 %patch110 -p1
 %patch111 -p1
 %patch112 -p1
+
+# fixes from stable 2.6.30.2
+%patch113 -p1
+%patch114 -p1
+%patch115 -p1
+%patch116 -p1
+%patch117 -p1
+%patch118 -p1
+%patch119 -p1
+%patch120 -p1
+%patch121 -p1
+%patch122 -p1
+%patch123 -p1
+%patch124 -p1
+%patch125 -p1
 
 # PATCH END
 
