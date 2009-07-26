@@ -167,13 +167,6 @@ Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 
 # patches to be added on stable updates
 
-# other patches
-Patch101:	drm-split-out-the-mm-declarations-in-a-separate-header-add-atomic-operations.patch
-Patch102:	drm-add-a-tracker-for-global-objects.patch
-Patch103:	drm-export-hash-table-functionality.patch
-Patch104:	drm-add-unlocked-IOCTL-functionality-from-the-drm-repo.patch
-Patch105:	staging-add-intel-poulsbo-morrestown-drm-driver.patch
-
 # Make boot faster
 Patch107:	linux-2.6.29-retry-root-mount.patch
 Patch108:	linux-2.6.29-dont-wait-for-mouse.patch
@@ -406,13 +399,6 @@ cd %{src_dir}
 %endif
 
 # extra patches
-
-# FIXME: poulsbo patches break dri/glx
-#patch101 -p1
-#patch102 -p1
-#patch103 -p1
-#patch104 -p1
-#patch105 -p1
 
 %patch107 -p1
 %patch108 -p1
