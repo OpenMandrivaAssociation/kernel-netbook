@@ -172,6 +172,7 @@ Patch107:	linux-2.6.29-retry-root-mount.patch
 Patch108:	linux-2.6.29-dont-wait-for-mouse.patch
 Patch109:	linux-2.6.29-enable-async-by-default.patch
 
+Patch120:	gpu-drm-nouveau.patch
 #END
 ####################################################################
 
@@ -401,6 +402,9 @@ cd %{src_dir}
 %patch107 -p1
 %patch108 -p1
 %patch109 -p1
+
+# nouveau
+%patch120 -p1
 
 # PATCH END
 
