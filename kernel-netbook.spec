@@ -655,6 +655,18 @@ fi
 if [ -L /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/source ]; then
     rm -f /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/source
 fi
+pushd /boot > /dev/null
+if [ -L vmlinuz-%{ktag} ]; then
+    if [ "$(readlink vmlinuz-%{ktag})" = "vmlinuz-%{kversion}-%{ktag}-%{buildrpmrel}" ]; then
+	rm -f vmlinuz-%{ktag}
+    fi
+fi
+if [ -L initrd-%{ktag}.img ]; then
+    if [ "$(readlink initrd-%{ktag}.img)" = "initrd-%{kversion}-%{ktag}-%{buildrpmrel}.img" ]; then
+	rm -f initrd-%{ktag}.img
+    fi
+fi
+popd > /dev/null
 exit 0
 
 %post -n %{kname}-%{buildrel}
@@ -665,6 +677,16 @@ if [ -d /usr/src/linux-%{kversion}-%{ktag}-devel-%{buildrpmrel} ]; then
     ln -sf /usr/src/linux-%{kversion}-%{ktag}-devel-%{buildrpmrel} \
            /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel}/source
 fi
+pushd /boot > /dev/null
+if [ -L vmlinuz-%{ktag} ]; then
+    rm -f vmlinuz-%{ktag}
+fi
+ln -sf vmlinuz-%{kversion}-%{ktag}-%{buildrpmrel} vmlinuz-%{ktag}
+if [ -L initrd-%{ktag}.img ]; then
+    rm -f initrd-%{ktag}.img
+fi
+ln -sf initrd-%{kversion}-%{ktag}-%{buildrpmrel}.img initrd-%{ktag}.img
+popd > /dev/null
 
 %postun -n %{kname}-%{buildrel}
 /sbin/kernel_remove_initrd %{buildrel}
