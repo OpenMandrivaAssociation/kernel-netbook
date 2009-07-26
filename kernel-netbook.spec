@@ -174,19 +174,12 @@ Patch103:	drm-export-hash-table-functionality.patch
 Patch104:	drm-add-unlocked-IOCTL-functionality-from-the-drm-repo.patch
 Patch105:	staging-add-intel-poulsbo-morrestown-drm-driver.patch
 
-# Atom support in coretemp
-# http://bugzilla.kernel.org/show_bug.cgi?id=11161
-Patch106:	hwmon-coretemp-atom.patch
-
 # Make boot faster
 Patch107:	linux-2.6.29-retry-root-mount.patch
 Patch108:	linux-2.6.29-dont-wait-for-mouse.patch
 Patch109:	linux-2.6.29-enable-async-by-default.patch
 Patch110:	linux-2.6.29-flip-ide-net.patch
 Patch111:	linux-2.6.30-fix-async.patch
-
-# Support for via card reader (SD/MMC)
-Patch112:	mmc-add-VIA-MSP-card-reader-driver-support.patch
 
 #END
 ####################################################################
@@ -421,13 +414,11 @@ cd %{src_dir}
 #patch104 -p1
 #patch105 -p1
 
-%patch106 -p1
 %patch107 -p1
 %patch108 -p1
 %patch109 -p1
 %patch110 -p1
 %patch111 -p1
-%patch112 -p1
 
 # PATCH END
 
