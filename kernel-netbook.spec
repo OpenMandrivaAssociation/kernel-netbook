@@ -571,7 +571,7 @@ chmod -R a+rX %{target_source}
 
 # first architecture files
 for i in alpha arm avr32 blackfin cris frv h8300 ia64 mips m32r m68k m68knommu \
-	 mn10300 parisc powerpc ppc sh sh64 s390 sparc v850 xtensa; do
+	 microblaze mn10300 parisc powerpc ppc sh sh64 s390 sparc v850 xtensa; do
 	rm -rf %{target_source}/arch/$i
 	rm -rf %{target_source}/include/asm-$i
 
@@ -795,6 +795,7 @@ exit 0
 %{_kerneldir}/scripts
 %{_kerneldir}/security
 %{_kerneldir}/sound
+%{_kerneldir}/tools
 %{_kerneldir}/usr
 %{_kerneldir}/virt
 %doc README.kernel-sources
@@ -857,6 +858,7 @@ exit 0
 %{_develdir}/scripts
 %{_develdir}/security
 %{_develdir}/sound
+%{_develdir}/tools
 %{_develdir}/usr
 %doc README.kernel-sources
 %doc README.MandrivaLinux
