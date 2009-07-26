@@ -171,8 +171,6 @@ Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 Patch107:	linux-2.6.29-retry-root-mount.patch
 Patch108:	linux-2.6.29-dont-wait-for-mouse.patch
 Patch109:	linux-2.6.29-enable-async-by-default.patch
-Patch110:	linux-2.6.29-flip-ide-net.patch
-Patch111:	linux-2.6.30-fix-async.patch
 
 #END
 ####################################################################
@@ -403,8 +401,6 @@ cd %{src_dir}
 %patch107 -p1
 %patch108 -p1
 %patch109 -p1
-%patch110 -p1
-%patch111 -p1
 
 # PATCH END
 
