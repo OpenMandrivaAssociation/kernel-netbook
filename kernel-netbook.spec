@@ -177,6 +177,7 @@ Patch120:	gpu-drm-nouveau.patch
 Patch130:	kernel-pid-export-find_task_by_vpid-symbol-for-fglrx.patch
 
 Patch140:	net-rfkill-fix-rfkill_set_states-to-set-the-hw-state.patch
+Patch141:	platform-x86-acer-wmi-rfkill-reversion.patch
 
 #END
 ####################################################################
@@ -415,7 +416,9 @@ cd %{src_dir}
 %patch130 -p1
 
 # rfkill fixes
-%patch130 -p1
+%patch140 -p1
+%patch141 -p1
+
 
 # PATCH END
 
