@@ -176,6 +176,8 @@ Patch120:	gpu-drm-nouveau.patch
 
 Patch130:	kernel-pid-export-find_task_by_vpid-symbol-for-fglrx.patch
 
+Patch140:	net-rfkill-fix-rfkill_set_states-to-set-the-hw-state.patch
+
 #END
 ####################################################################
 
@@ -410,6 +412,9 @@ cd %{src_dir}
 %patch120 -p1
 
 # fix fglrx build
+%patch130 -p1
+
+# rfkill fixes
 %patch130 -p1
 
 # PATCH END
