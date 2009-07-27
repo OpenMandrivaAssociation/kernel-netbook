@@ -17,7 +17,7 @@
 %define kgit		0
 
 # this is the releaseversion
-%define mdvrelease 	1
+%define mdvrelease 	2
 
 # This is only to make life easier for people that creates derivated kernels
 # a.k.a name it kernel-tmb :)
@@ -178,6 +178,7 @@ Patch130:	kernel-pid-export-find_task_by_vpid-symbol-for-fglrx.patch
 
 Patch140:	net-rfkill-fix-rfkill_set_states-to-set-the-hw-state.patch
 Patch141:	platform-x86-acer-wmi-rfkill-reversion.patch
+Patch142:	platform-x86-dell-laptop-Fix-rfkill-state-setting.patch
 
 #END
 ####################################################################
@@ -418,6 +419,7 @@ cd %{src_dir}
 # rfkill fixes
 %patch140 -p1
 %patch141 -p1
+%patch142 -p1
 
 
 # PATCH END
