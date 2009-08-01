@@ -10,14 +10,14 @@
 # kernel Makefile extraversion is substituted by 
 # kpatch/kgit/kstable wich are either 0 (empty), rc (kpatch), git (kgit) 
 # or stable release (kstable)
-%define kpatch		rc4
+%define kpatch		rc5
 %define kstable		0
 
 # kernel.org -gitX patch (only the number after "git")
 %define kgit		0
 
 # this is the releaseversion
-%define mdvrelease 	2
+%define mdvrelease 	1
 
 # This is only to make life easier for people that creates derivated kernels
 # a.k.a name it kernel-tmb :)
@@ -173,11 +173,10 @@ Patch108:	linux-2.6.29-dont-wait-for-mouse.patch
 Patch109:	linux-2.6.29-enable-async-by-default.patch
 
 Patch120:	gpu-drm-nouveau.patch
+Patch121:	gpu-drm-nouveau-buildfix-2.6.31-rc5.patch
 
 Patch130:	kernel-pid-export-find_task_by_vpid-symbol-for-fglrx.patch
 
-Patch140:	net-rfkill-fix-rfkill_set_states-to-set-the-hw-state.patch
-Patch141:	platform-x86-acer-wmi-rfkill-reversion.patch
 Patch142:	platform-x86-dell-laptop-Fix-rfkill-state-setting.patch
 
 #END
@@ -412,13 +411,12 @@ cd %{src_dir}
 
 # nouveau
 %patch120 -p1
+%patch121 -p1
 
 # fix fglrx build
 %patch130 -p1
 
 # rfkill fixes
-%patch140 -p1
-%patch141 -p1
 %patch142 -p1
 
 
