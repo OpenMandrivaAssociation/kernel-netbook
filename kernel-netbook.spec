@@ -173,6 +173,7 @@ Patch108:	linux-2.6.29-dont-wait-for-mouse.patch
 Patch109:	linux-2.6.29-enable-async-by-default.patch
 
 Patch120:	gpu-drm-nouveau.patch
+Patch121:	gpu-drm-git-fixes.patch
 
 Patch130:	kernel-pid-export-find_task_by_vpid-symbol-for-fglrx.patch
 
@@ -412,6 +413,9 @@ cd %{src_dir}
 
 # nouveau
 %patch120 -p1
+
+# drm updates
+%patch121 -p1
 
 # fix fglrx build
 %patch130 -p1
