@@ -179,6 +179,8 @@ Patch130:	kernel-pid-export-find_task_by_vpid-symbol-for-fglrx.patch
 
 Patch142:	platform-x86-dell-laptop-Fix-rfkill-state-setting.patch
 
+Patch145:	net-core-dev-lockdep-fix.patch
+
 Patch150:	dvb-usb-af9015-fix-crash.patch
 
 #END
@@ -422,6 +424,9 @@ cd %{src_dir}
 
 # rfkill fixes
 %patch142 -p1
+
+# net core dev lockdep fix
+%patch145 -p1
 
 # fix oops in af9015
 %patch150 -p1
