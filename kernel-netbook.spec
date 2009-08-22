@@ -10,7 +10,7 @@
 # kernel Makefile extraversion is substituted by 
 # kpatch/kgit/kstable wich are either 0 (empty), rc (kpatch), git (kgit) 
 # or stable release (kstable)
-%define kpatch		rc6
+%define kpatch		rc7
 %define kstable		0
 
 # kernel.org -gitX patch (only the number after "git")
@@ -177,8 +177,6 @@ Patch120:	gpu-drm-nouveau.patch
 Patch130:	kernel-pid-export-find_task_by_vpid-symbol-for-fglrx.patch
 
 Patch142:	platform-x86-dell-laptop-Fix-rfkill-state-setting.patch
-
-Patch150:	dvb-usb-af9015-fix-crash.patch
 
 #END
 ####################################################################
@@ -418,9 +416,6 @@ cd %{src_dir}
 
 # rfkill fixes
 %patch142 -p1
-
-# fix oops in af9015
-%patch150 -p1
 
 # PATCH END
 
