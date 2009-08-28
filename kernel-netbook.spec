@@ -17,7 +17,7 @@
 %define kgit		0
 
 # this is the releaseversion
-%define mdvrelease 	2
+%define mdvrelease 	3
 
 # This is only to make life easier for people that creates derivated kernels
 # a.k.a name it kernel-tmb :)
@@ -179,6 +179,8 @@ Patch130:	kernel-pid-export-find_task_by_vpid-symbol-for-fglrx.patch
 Patch142:	platform-x86-dell-laptop-Fix-rfkill-state-setting.patch
 
 Patch150:	fs-inotify-do-not-send-a-block-of-zeros-when-no-pathname-is-available.patch
+Patch151:	fs-inotify-fix-length-reporting-and-size-checking.patch
+Patch152:	fs-inotify-update-the-group-mask-on-mark-addition.patch
 
 #END
 ####################################################################
@@ -421,6 +423,8 @@ cd %{src_dir}
 
 # fix inotify regression in -rc8 causing boot hang/failure
 %patch150 -p1
+%patch151 -p1
+%patch152 -p1
 
 # PATCH END
 
