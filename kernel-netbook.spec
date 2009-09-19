@@ -7,8 +7,8 @@
 %define patchlevel	6
 %define sublevel	31
 
-# kernel Makefile extraversion is substituted by 
-# kpatch/kgit/kstable wich are either 0 (empty), rc (kpatch), git (kgit) 
+# kernel Makefile extraversion is substituted by
+# kpatch/kgit/kstable wich are either 0 (empty), rc (kpatch), git (kgit)
 # or stable release (kstable)
 %define kpatch		0
 %define kstable		0
@@ -100,10 +100,15 @@
 %if %(if [ -z "$CC" ] ; then echo 0; else echo 1; fi)
 %define kmake %make CC="$CC"
 %else
-%define kmake %make 
+%define kmake %make
 %endif
 # there are places where parallel make don't work
 %define smake make
+
+# Parallelize xargs invocations on smp machines
+%define kxargs xargs %([ -z "$RPM_BUILD_NCPUS" ] \\\
+	&& RPM_BUILD_NCPUS="`/usr/bin/getconf _NPROCESSORS_ONLN`"; \\\
+	[ "$RPM_BUILD_NCPUS" -gt 1 ] && echo "-P $RPM_BUILD_NCPUS")
 
 # Aliases for amd64 builds (better make source links?)
 %define target_cpu	%(echo %{_target_cpu} | sed -e "s/amd64/x86_64/")
@@ -182,8 +187,8 @@ Patch142:	platform-x86-dell-laptop-Fix-rfkill-state-setting.patch
 ####################################################################
 
 # Defines for the things that are needed for all the kernels
-%define requires1 module-init-tools >= 3.0-%mkrel 7
-%define requires2 mkinitrd >= 3.4.43-%mkrel 10
+%define requires1 module-init-tools >= 3.0-7
+%define requires2 mkinitrd >= 3.4.43-10
 %define requires3 bootloader-utils >= 1.9
 %define requires4 sysfsutils module-init-tools >= 0.9.15
 %define requires5 kernel-firmware >= 2.6.27-0.rc2.2mdv
@@ -218,23 +223,23 @@ Requires:	%requires3
 Requires:	%requires4
 Requires: 	%requires5
 
-%ifarch %{ix86}	
+%ifarch %{ix86}
 Conflicts:	arch(x86_64)
 %endif
 
 %description -n %{kname}-%{buildrel}
 %ifarch %{ix86}
-This kernel is compiled for netbook use, single or multiple i586 
+This kernel is compiled for netbook use, single or multiple i586
 processor(s)/core(s) and less than 4GB RAM, using HZ_1000, voluntary
 preempt, CFS cpu scheduler and cfq i/o scheduler.
-This kernel relies on in-kernel smp alternatives to switch between 
+This kernel relies on in-kernel smp alternatives to switch between
 up & smp mode depending on detected hardware. To force the kernel
 to boot in single processor mode, use the "nosmp" boot parameter.
 %else
 This kernel is compiled for netbook use, single or multiple %{_arch}
-processor(s)/core(s), using HZ_1000, voluntary preempt, CFS cpu 
+processor(s)/core(s), using HZ_1000, voluntary preempt, CFS cpu
 scheduler and cfq i/o scheduler.
-This kernel relies on in-kernel smp alternatives to switch between 
+This kernel relies on in-kernel smp alternatives to switch between
 up & smp mode depending on detected hardware. To force the kernel
 to boot in single processor mode, use the "nosmp" boot parameter.
 %endif
@@ -257,13 +262,13 @@ Requires:	glibc-devel, ncurses-devel, make, gcc, perl
 Summary:	The source code for the Linux kernel
 Group:		Development/Kernel
 Autoreqprov: 	no
-%ifarch %{ix86}	
+%ifarch %{ix86}
 Conflicts:	arch(x86_64)
 %endif
 
 %description -n %{kname}-source-%{buildrel}
-The %{kname}-source package contains the source code files for the 
-Linux kernel. These source files are only needed if you want to build 
+The %{kname}-source package contains the source code files for the
+Linux kernel. These source files are only needed if you want to build
 your own custom kernel that is better tuned to your particular hardware.
 
 If you only want the files needed to build 3rdparty (nVidia, Ati, dkms-*,...)
@@ -274,8 +279,8 @@ http://www.mandriva.com/en/security/kernelupdate
 %endif #build_source
 
 
-# 
-# kernel-devel: stripped kernel sources 
+#
+# kernel-devel: stripped kernel sources
 #
 %if %build_devel
 %package -n %{kname}-devel-%{buildrel}
@@ -286,15 +291,15 @@ Summary:	The %{kname} devel files for 3rdparty modules build
 Group:		Development/Kernel
 Autoreqprov:	no
 Requires:	glibc-devel, ncurses-devel, make, gcc, perl
-%ifarch %{ix86}	
+%ifarch %{ix86}
 Conflicts:	arch(x86_64)
 %endif
 
 %description -n %{kname}-devel-%{buildrel}
-This package contains the kernel-devel files that should be enough to build 
+This package contains the kernel-devel files that should be enough to build
 3rdparty drivers against for use with the %{kname}-%{buildrel}.
 
-If you want to build your own kernel, you need to install the full 
+If you want to build your own kernel, you need to install the full
 %{kname}-source-%{buildrel} rpm.
 %endif #build_devel
 
@@ -308,7 +313,7 @@ Version:        %{kversion}
 Release:        %{rpmrel}
 Summary:	Various documentation bits found in the kernel source
 Group:		Books/Computer books
-%ifarch %{ix86}	
+%ifarch %{ix86}
 Conflicts:	arch(x86_64)
 %endif
 
@@ -334,7 +339,7 @@ Release:        %{rpmrel}
 Summary: 	Virtual rpm for latest %{kname}
 Group: 	  	System/Kernel and hardware
 Requires: 	%{kname}-%{buildrel}
-%ifarch %{ix86}	
+%ifarch %{ix86}
 Conflicts:	arch(x86_64)
 %endif
 
@@ -374,7 +379,7 @@ Release:        %{rpmrel}
 Summary: 	Virtual rpm for latest %{kname}-devel
 Group: 	  	System/Kernel and hardware
 Requires: 	%{kname}-devel-%{buildrel}
-%ifarch %{ix86}	
+%ifarch %{ix86}
 Conflicts:	arch(x86_64)
 %endif
 
@@ -493,6 +498,7 @@ install -d %{temp_modules}/%{kversion}-%{ktag}-%{buildrpmrel}
 rm -rf %{temp_root}/lib/firmware
 
 # Save devel tree
+%if %build_devel
 mkdir -p %{temp_devel}
 for i in $(find . -name 'Makefile*'); do cp -R --parents $i %{temp_devel};done
 for i in $(find . -name 'Kconfig*' -o -name 'Kbuild*'); do cp -R --parents $i %{temp_devel};done
@@ -539,6 +545,7 @@ patch -p1 -d %{temp_devel} -i %{SOURCE2}
 
 # Fix permissions
 chmod -R a+rX %{temp_devel}
+%endif # build_devel
 
 #make sure we are in the directory
 cd %src_dir
@@ -567,7 +574,7 @@ cp -a %{temp_root} %{buildroot}
 
 # Create directories infastructure
 %if %build_source
-install -d %{target_source} 
+install -d %{target_source}
 
 tar cf - . | tar xf - -C %{target_source}
 chmod -R a+rX %{target_source}
@@ -604,7 +611,7 @@ rm -f %{target_source}/{.config.old,.config.cmd,.tmp_gas_check,.mailmap,.missing
 
 
 # gzipping modules
-find %{target_modules} -name "*.ko" | xargs gzip -9
+find %{target_modules} -name "*.ko" | %kxargs gzip -9
 
 
 # We used to have a copy of PrepareKernel here
@@ -627,7 +634,7 @@ for i in *; do
 	pushd $i
 	echo "Creating module.description for $i"
 	modules=`find . -name "*.ko.gz"`
-	echo $modules | xargs /sbin/modinfo-25 \
+	echo $modules | %kxargs /sbin/modinfo-25 \
 	| perl -lne 'print "$name\t$1" if $name && /^description:\s*(.*)/; $name = $1 if m!^filename:\s*(.*)\.k?o!; $name =~ s!.*/!!' > modules.description
 	popd
 done
@@ -640,10 +647,10 @@ popd
 
 %clean
 rm -rf %{buildroot}
-# We don't want to remove this, the whole reason of its existence is to be 
-# able to do several rpm --short-circuit -bi for testing install 
+# We don't want to remove this, the whole reason of its existence is to be
+# able to do several rpm --short-circuit -bi for testing install
 # phase without repeating compilation phase
-#rm -rf %{temp_root} 
+#rm -rf %{temp_root}
 
 
 ###
