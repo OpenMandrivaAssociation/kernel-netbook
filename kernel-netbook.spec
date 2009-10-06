@@ -199,17 +199,17 @@ Patch161:	net-wireless-ath9k-Remove-bogus-assert-in-ath_clone_txbuf.patch
 Patch162:	net-wireless-ath9k-Handle-tx-desc-shortage-more-appropriately.patch
 Patch163:	net-wireless-ath9k-do-not-stop-the-queues-in-driver-stop.patch
 Patch164:	net-wireless-ath9k-Trivial-fix-in-Kconfig.patch
-Patch164:	net-wireless-ath9k-Update-beacon-RSSI.patch
-Patch165:	net-wireless-ath9k-Fix-bug-in-PCI-resume.patch
-Patch166:	net-wireless-ath9k-Set-HW-state-properly.patch
-Patch167:	net-wireless-ath9k-Fix-TX-poll-cancelling.patch
-Patch168:	net-wireless-ath9k-Fix-bug-in-retrieving-average-beacon-rssi.patch
-Patch169:	net-wireless-ath9k-Fix-read-buffer-overflow.patch
-Patch170:	net-wireless-ath9k-claim-irq-for-ath9k-not-ath-for-pci.patch
-Patch171:	net-wireless-ath9k-Fix-bug-in-ANI-channel-handling.patch
-Patch172:	net-wireless-ath9k-Do-a-full-reset-for-AR9280.patch
-Patch173:	net-wireless-ath9k-Disable-autosleep-feature-by-default.patch
-Patch174:	net-wireless-ath9k-Fix-RFKILL-bugs.patch
+Patch165:	net-wireless-ath9k-Update-beacon-RSSI.patch
+Patch166:	net-wireless-ath9k-Fix-bug-in-PCI-resume.patch
+Patch167:	net-wireless-ath9k-Set-HW-state-properly.patch
+Patch168:	net-wireless-ath9k-Fix-TX-poll-cancelling.patch
+Patch169:	net-wireless-ath9k-Fix-bug-in-retrieving-average-beacon-rssi.patch
+Patch170:	net-wireless-ath9k-Fix-read-buffer-overflow.patch
+Patch171:	net-wireless-ath9k-claim-irq-for-ath9k-not-ath-for-pci.patch
+Patch172:	net-wireless-ath9k-Fix-bug-in-ANI-channel-handling.patch
+Patch173:	net-wireless-ath9k-Do-a-full-reset-for-AR9280.patch
+Patch174:	net-wireless-ath9k-Disable-autosleep-feature-by-default.patch
+Patch175:	net-wireless-ath9k-Fix-RFKILL-bugs.patch
 
 #END
 ####################################################################
@@ -476,6 +476,7 @@ cd %{src_dir}
 %patch172 -p1
 %patch173 -p1
 %patch174 -p1
+%patch175 -p1
 
 # PATCH END
 
