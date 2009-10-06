@@ -211,6 +211,9 @@ Patch173:	net-wireless-ath9k-Do-a-full-reset-for-AR9280.patch
 Patch174:	net-wireless-ath9k-Disable-autosleep-feature-by-default.patch
 Patch175:	net-wireless-ath9k-Fix-RFKILL-bugs.patch
 
+# compress modules at make modules_install stage
+Patch200:	compress-kernel-modules-on-installation.patch
+
 #END
 ####################################################################
 
@@ -478,6 +481,9 @@ cd %{src_dir}
 %patch174 -p1
 %patch175 -p1
 
+# compress modules at make modules_install stage
+%patch200 -p1
+
 # PATCH END
 
 #
@@ -666,10 +672,6 @@ rm -f %{target_source}/{.config.old,.config.cmd,.tmp_gas_check,.mailmap,.missing
 %endif
 
 
-# gzipping modules
-find %{target_modules} -name "*.ko" | %kxargs gzip -9
-
-
 # We used to have a copy of PrepareKernel here
 # Now, we make sure that the thing in the linux dir is what we want it to be
 
@@ -678,17 +680,11 @@ for i in %{target_modules}/*; do
 done
 
 
-# sniff, if we gzipped all the modules, we change the stamp :(
-# we really need the depmod -ae here
+# Create modules.description
 pushd %{target_modules}
 for i in *; do
-	/sbin/depmod -u -ae -b %{buildroot} -r -F %{target_boot}/System.map-$i $i
-	echo $?
-done
-
-for i in *; do
 	pushd $i
-	echo "Creating module.description for $i"
+	echo "Creating modules.description for $i"
 	modules=`find . -name "*.ko.gz"`
 	echo $modules | %kxargs /sbin/modinfo-25 \
 	| perl -lne 'print "$name\t$1" if $name && /^description:\s*(.*)/; $name = $1 if m!^filename:\s*(.*)\.k?o!; $name =~ s!.*/!!' > modules.description
