@@ -17,7 +17,7 @@
 %define kgit		0
 
 # this is the releaseversion
-%define mdvrelease 	1
+%define mdvrelease 	2
 
 # This is only to make life easier for people that creates derivated kernels
 # a.k.a name it kernel-tmb :)
@@ -180,6 +180,8 @@ Patch109:	linux-2.6.29-enable-async-by-default.patch
 Patch120:	gpu-drm-nouveau.patch
 
 Patch130:	kernel-pid-export-find_task_by_vpid-symbol-for-fglrx.patch
+
+Patch137:	fs-devtmpfs-kernel-maintained-tmpfs-based-dev.patch
 
 Patch142:	platform-x86-dell-laptop-Fix-rfkill-state-setting.patch
 
@@ -449,6 +451,9 @@ cd %{src_dir}
 
 # fix fglrx build
 %patch130 -p1
+
+# devtmpfs
+%patch137 -p1
 
 # rfkill fixes
 %patch142 -p1
