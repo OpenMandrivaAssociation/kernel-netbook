@@ -177,41 +177,7 @@ Patch107:	linux-2.6.29-retry-root-mount.patch
 Patch108:	linux-2.6.29-dont-wait-for-mouse.patch
 Patch109:	linux-2.6.29-enable-async-by-default.patch
 
-Patch120:	gpu-drm-nouveau.patch
-
 Patch130:	kernel-pid-export-find_task_by_vpid-symbol-for-fglrx.patch
-
-Patch137:	fs-devtmpfs-kernel-maintained-tmpfs-based-dev.patch
-
-Patch142:	platform-x86-dell-laptop-Fix-rfkill-state-setting.patch
-
-# fix the wireless ath9k stability based on fixes merged in 2.6.32-rc1 (#52739)
-Patch150:	net-wireless-ath9k-downgrade-ASSERT-in-ath_clone_txbuf.patch
-Patch151:	net-wireless-ath9k-Make-sure-we-configure-a-non-zero-beacon-interval.patch
-Patch152:	net-wireless-ath9k-differentiate-quality-reporting-between-legacy-and-HT-configurations.patch
-Patch153:	net-wireless-ath9k-remove-unnecessary-STATION-mode-check.patch
-Patch154:	net-wireless-ath9k-stop-ani-when-the-STA-gets-disconnected.patch
-Patch155:	net-wireless-ath9k-race-condition-in-SCANNING-state-check-during-ANI-calibration.patch
-Patch156:	net-wireless-ath9k-Handle-different-TX-and-RX-streams-properly.patch
-Patch157:	net-wireless-ath9k-downgrade-assert-in-rc.c-for-invalid-rate.patch
-Patch158:	net-wireless-ath9k-Manipulate-and-report-the-correct-RSSI.patch
-Patch159:	net-wireless-ath9k-RX-stucks-during-heavy-traffic-in-HT40-mode.patch
-Patch160:	net-wireless-ath9k-Fix-TX-hang-issue-with-Atheros-chipsets.patch
-Patch161:	net-wireless-ath9k-Remove-bogus-assert-in-ath_clone_txbuf.patch
-Patch162:	net-wireless-ath9k-Handle-tx-desc-shortage-more-appropriately.patch
-Patch163:	net-wireless-ath9k-do-not-stop-the-queues-in-driver-stop.patch
-Patch164:	net-wireless-ath9k-Trivial-fix-in-Kconfig.patch
-Patch165:	net-wireless-ath9k-Update-beacon-RSSI.patch
-Patch166:	net-wireless-ath9k-Fix-bug-in-PCI-resume.patch
-Patch167:	net-wireless-ath9k-Set-HW-state-properly.patch
-Patch168:	net-wireless-ath9k-Fix-TX-poll-cancelling.patch
-Patch169:	net-wireless-ath9k-Fix-bug-in-retrieving-average-beacon-rssi.patch
-Patch170:	net-wireless-ath9k-Fix-read-buffer-overflow.patch
-Patch171:	net-wireless-ath9k-claim-irq-for-ath9k-not-ath-for-pci.patch
-Patch172:	net-wireless-ath9k-Fix-bug-in-ANI-channel-handling.patch
-Patch173:	net-wireless-ath9k-Do-a-full-reset-for-AR9280.patch
-Patch174:	net-wireless-ath9k-Disable-autosleep-feature-by-default.patch
-Patch175:	net-wireless-ath9k-Fix-RFKILL-bugs.patch
 
 # compress modules at make modules_install stage
 Patch200:	compress-kernel-modules-on-installation.patch
@@ -428,7 +394,7 @@ latest %{kname}-devel installed...
 %prep
 %setup -q -n %top_dir_name -c
 
-cd %{src_dir}
+pushd %{src_dir}
 
 %if %kpatch
 %patch1 -p1
@@ -446,48 +412,12 @@ cd %{src_dir}
 %patch108 -p1
 %patch109 -p1
 
-# nouveau
-%patch120 -p1
-
 # fix fglrx build
 %patch130 -p1
 
-# devtmpfs
-%patch137 -p1
-
-# rfkill fixes
-%patch142 -p1
-
-# ath9k stability fixes
-%patch150 -p1
-%patch151 -p1
-%patch152 -p1
-%patch153 -p1
-%patch154 -p1
-%patch155 -p1
-%patch156 -p1
-%patch157 -p1
-%patch158 -p1
-%patch159 -p1
-%patch160 -p1
-%patch161 -p1
-%patch162 -p1
-%patch163 -p1
-%patch164 -p1
-%patch165 -p1
-%patch166 -p1
-%patch167 -p1
-%patch168 -p1
-%patch169 -p1
-%patch170 -p1
-%patch171 -p1
-%patch172 -p1
-%patch173 -p1
-%patch174 -p1
-%patch175 -p1
-
 # compress modules at make modules_install stage
 %patch200 -p1
+popd
 
 # PATCH END
 
@@ -568,7 +498,7 @@ rm -rf %{temp_root}/lib/firmware
 %if %build_devel
 mkdir -p %{temp_devel}
 for i in $(find . -name 'Makefile*'); do cp -R --parents $i %{temp_devel};done
-for i in $(find . -name 'Kconfig*' -o -name 'Kbuild*'); do cp -R --parents $i %{temp_devel};done
+for i in $(find . -name 'Kconfig*' -o -name 'Kbuild*' -o -name config.mk); do cp -R --parents $i %{temp_devel};done
 cp -fR include %{temp_devel}
 cp -fR scripts %{temp_devel}
 %ifarch %{ix86} x86_64
@@ -650,23 +580,19 @@ chmod -R a+rX %{target_source}
 
 # first architecture files
 for i in alpha arm avr32 blackfin cris frv h8300 ia64 mips m32r m68k m68knommu \
-	 microblaze mn10300 parisc powerpc ppc sh sh64 s390 sparc v850 xtensa; do
+	 microblaze mn10300 parisc powerpc ppc score sh sh64 s390 sparc v850 xtensa; do
 	rm -rf %{target_source}/arch/$i
-	rm -rf %{target_source}/include/asm-$i
 
 %if %build_devel
 	rm -rf %{target_devel}/arch/$i
-	rm -rf %{target_devel}/include/asm-$i
 %endif
 done
 
 # remove arch files based on target arch
 %ifnarch %{ix86} x86_64
 	rm -rf %{target_source}/arch/x86
-	rm -rf %{target_source}/include/asm-x86
 %if %build_devel
 	rm -rf %{target_devel}/arch/x86
-	rm -rf %{target_devel}/include/asm-x86
 %endif
 %endif
 
@@ -857,9 +783,6 @@ exit 0
 %{_kerneldir}/include/Kbuild
 %{_kerneldir}/include/acpi
 %{_kerneldir}/include/asm-generic
-%ifarch %{ix86} x86_64
-%{_kerneldir}/include/asm-x86
-%endif
 %{_kerneldir}/include/crypto
 %{_kerneldir}/include/drm
 %{_kerneldir}/include/linux
@@ -917,14 +840,11 @@ exit 0
 %{_develdir}/fs
 %{_develdir}/include/Kbuild
 %{_develdir}/include/acpi
-%{_develdir}/include/asm
 %{_develdir}/include/asm-generic
-%ifarch %{ix86} x86_64
-%{_develdir}/include/asm-x86
-%endif
 %{_develdir}/include/config
 %{_develdir}/include/crypto
 %{_develdir}/include/drm
+%{_develdir}/include/generated
 %{_develdir}/include/keys
 %{_develdir}/include/linux
 %{_develdir}/include/math-emu
@@ -951,6 +871,7 @@ exit 0
 %{_develdir}/sound
 %{_develdir}/tools
 %{_develdir}/usr
+%{_develdir}/virt
 %doc README.kernel-sources
 %doc README.MandrivaLinux
 %endif # build_devel
