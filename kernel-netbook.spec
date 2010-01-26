@@ -177,6 +177,8 @@ Patch107:	linux-2.6.29-retry-root-mount.patch
 Patch108:	linux-2.6.29-dont-wait-for-mouse.patch
 Patch109:	linux-2.6.29-enable-async-by-default.patch
 
+Patch120:	x86-agp-fix-agp_amd64_init-regression.patch
+
 Patch130:	kernel-pid-export-find_task_by_vpid-symbol-for-fglrx.patch
 
 # compress modules at make modules_install stage
@@ -411,6 +413,9 @@ pushd %{src_dir}
 %patch107 -p1
 %patch108 -p1
 %patch109 -p1
+
+# fix amd64-agp not being initialized
+%patch120 -p1
 
 # fix fglrx build
 %patch130 -p1
