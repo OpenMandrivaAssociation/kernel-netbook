@@ -177,7 +177,6 @@ Patch107:	linux-2.6.29-retry-root-mount.patch
 Patch108:	linux-2.6.29-dont-wait-for-mouse.patch
 Patch109:	linux-2.6.29-enable-async-by-default.patch
 
-Patch120:	x86-agp-fix-agp_amd64_init-regression.patch
 Patch121:	fs-freeze_bdev-dont-deactivate-successfully-frozen-MS_RDONLY-sb.patch
 
 Patch130:	kernel-pid-export-find_task_by_vpid-symbol-for-fglrx.patch
@@ -414,9 +413,6 @@ pushd %{src_dir}
 %patch107 -p1
 %patch108 -p1
 %patch109 -p1
-
-# fix amd64-agp not being initialized
-%patch120 -p1
 
 # fix oops on dmraid boot
 %patch121 -p1
