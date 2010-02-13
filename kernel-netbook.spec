@@ -179,6 +179,8 @@ Patch109:	linux-2.6.29-enable-async-by-default.patch
 
 Patch120:	gpu-drm-nouveau-add-nv50-nv8x-nv9x-ctxprogs-generator.patch
 
+Patch125:	net-atl1c-add-support-for-AR8151-AR8152.patch
+
 Patch130:	kernel-pid-export-find_task_by_vpid-symbol-for-fglrx.patch
 
 # compress modules at make modules_install stage
@@ -416,6 +418,9 @@ pushd %{src_dir}
 
 # fix nouveau
 %patch120 -p1
+
+# Atheros AR8151-AR8152 support
+%patch125 -p1
 
 # fix fglrx build
 %patch130 -p1
