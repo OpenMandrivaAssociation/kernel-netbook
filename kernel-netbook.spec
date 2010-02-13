@@ -180,6 +180,7 @@ Patch109:	linux-2.6.29-enable-async-by-default.patch
 Patch120:	gpu-drm-nouveau-add-nv50-nv8x-nv9x-ctxprogs-generator.patch
 
 Patch125:	net-atl1c-add-support-for-AR8151-AR8152.patch
+Patch126:	net-mac80211-fix-handling-of-null-rate-control-in-rate_control_get_rate.patch
 
 Patch130:	kernel-pid-export-find_task_by_vpid-symbol-for-fglrx.patch
 
@@ -421,6 +422,9 @@ pushd %{src_dir}
 
 # Atheros AR8151-AR8152 support
 %patch125 -p1
+
+# mac80211 null-rate handling fix
+%patch126 -p1
 
 # fix fglrx build
 %patch130 -p1
