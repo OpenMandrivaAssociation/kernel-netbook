@@ -184,8 +184,6 @@ Patch126:	net-mac80211-fix-handling-of-null-rate-control-in-rate_control_get_rat
 Patch127:	net-wireless-iwlwifi-fix-AMSDU-Rx-afte-paged-Rx-patch.patch
 Patch128:	net-wireless-b43-allow-pio-at-runtime.patch
 
-Patch130:	kernel-pid-export-find_task_by_vpid-symbol-for-fglrx.patch
-
 # compress modules at make modules_install stage
 Patch200:	compress-kernel-modules-on-installation.patch
 
@@ -433,9 +431,6 @@ pushd %{src_dir}
 
 # b43: convert B43_PIO(_FORCE) to a module option (pio=1)
 %patch128 -p1
-
-# fix fglrx build
-%patch130 -p1
 
 # compress modules at make modules_install stage
 %patch200 -p1
