@@ -10,7 +10,7 @@
 # kernel Makefile extraversion is substituted by
 # kpatch/kgit/kstable wich are either 0 (empty), rc (kpatch), git (kgit)
 # or stable release (kstable)
-%define kpatch		rc8
+%define kpatch		0
 %define kstable		0
 
 # kernel.org -gitX patch (only the number after "git")
@@ -180,8 +180,7 @@ Patch109:	linux-2.6.29-enable-async-by-default.patch
 Patch120:	gpu-drm-nouveau-add-nv50-nv8x-nv9x-ctxprogs-generator.patch
 
 Patch125:	net-atl1c-add-support-for-AR8151-AR8152.patch
-Patch126:	net-mac80211-fix-handling-of-null-rate-control-in-rate_control_get_rate.patch
-Patch127:	net-wireless-iwlwifi-fix-AMSDU-Rx-afte-paged-Rx-patch.patch
+
 Patch128:	net-wireless-b43-allow-pio-at-runtime.patch
 
 # compress modules at make modules_install stage
@@ -422,12 +421,6 @@ pushd %{src_dir}
 
 # Atheros AR8151-AR8152 support
 %patch125 -p1
-
-# mac80211 null-rate handling fix
-%patch126 -p1
-
-# iwlwifi: fix broken AMSDU Rx functionality
-%patch127 -p1
 
 # b43: convert B43_PIO(_FORCE) to a module option (pio=1)
 %patch128 -p1
