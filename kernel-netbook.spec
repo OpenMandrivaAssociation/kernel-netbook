@@ -434,7 +434,6 @@ pushd %{src_dir}
 
 # compress modules at make modules_install stage
 %patch200 -p1
-popd
 
 # PATCH END
 
@@ -444,11 +443,13 @@ popd
 
 
 # Install defconfigs...
-install %{SOURCE20} %{build_dir}/linux-%{tar_ver}/arch/x86/configs/
-install %{SOURCE21} %{build_dir}/linux-%{tar_ver}/arch/x86/configs/
+install %{SOURCE20} arch/x86/configs/
+install %{SOURCE21} arch/x86/configs/
 
 # make sure the kernel has the sublevel we know it has...
 LC_ALL=C perl -p -i -e "s/^SUBLEVEL.*/SUBLEVEL = %{sublevel}/" Makefile
+
+popd
 
 
 %build
