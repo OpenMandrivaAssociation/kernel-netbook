@@ -177,8 +177,11 @@ Patch107:	linux-2.6.29-retry-root-mount.patch
 Patch108:	linux-2.6.29-dont-wait-for-mouse.patch
 Patch109:	linux-2.6.29-enable-async-by-default.patch
 
+# Nouveau for 2010.1
 Patch120:	gpu-drm-nouveau-git-20100316.patch
 Patch121:	gpu-drm-nouveau-fix-missing-locking.patch
+# Nouveau for 2010.0 backports
+Patch122:       gpu-drm-nouveau-add-nv50-nv8x-nv9x-ctxprogs-generator.patch
 
 Patch125:	net-atl1c-add-support-for-AR8151-AR8152.patch
 
@@ -419,9 +422,15 @@ pushd %{src_dir}
 %patch108 -p1
 %patch109 -p1
 
+%if %{mdkversion} > 201000
+# nouveau for 2010.1 series
 # update nouveau to git-20100316
 %patch120 -p1
 %patch121 -p1
+%else
+# nouveau for 2010.0 backports
+%patch122 -p1
+%endif
 
 # Atheros AR8151-AR8152 support
 %patch125 -p1
