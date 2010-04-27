@@ -185,8 +185,6 @@ Patch122:       gpu-drm-nouveau-add-nv50-nv8x-nv9x-ctxprogs-generator.patch
 
 Patch125:	net-atl1c-add-support-for-AR8151-AR8152.patch
 
-Patch128:	net-wireless-b43-allow-pio-at-runtime.patch
-
 Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
 
 # compress modules at make modules_install stage
@@ -434,9 +432,6 @@ pushd %{src_dir}
 
 # Atheros AR8151-AR8152 support
 %patch125 -p1
-
-# b43: convert B43_PIO(_FORCE) to a module option (pio=1)
-%patch128 -p1
 
 # alsa: hda_intel: preallocate 4mb dmabuffer
 %patch130 -p1
