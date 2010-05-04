@@ -17,7 +17,7 @@
 %define kgit		0
 
 # this is the releaseversion
-%define mdvrelease 	1
+%define mdvrelease 	2
 
 # This is only to make life easier for people that creates derivated kernels
 # a.k.a name it kernel-tmb :)
@@ -369,6 +369,7 @@ Requires: 	%{kname}-source-%{buildrel}
 %ifarch %{ix86}	
 Conflicts:	arch(x86_64)
 %endif
+Provides:	kernel-source-latest = %{kversion}-%{rpmrel}
 
 %description -n %{kname}-source-latest
 This package is a virtual rpm that aims to make sure you always have the
@@ -389,6 +390,7 @@ Requires: 	%{kname}-devel-%{buildrel}
 %ifarch %{ix86}
 Conflicts:	arch(x86_64)
 %endif
+Provides:	kernel-devel-latest = %{kversion}-%{rpmrel}
 
 %description -n %{kname}-devel-latest
 This package is a virtual rpm that aims to make sure you always have the
