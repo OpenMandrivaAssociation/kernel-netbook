@@ -187,6 +187,9 @@ Patch125:	net-atl1c-add-support-for-AR8151-AR8152.patch
 
 Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
 
+# Security/bug fixes
+Patch140:	fs-ext4-Prevent-creation-of-files-larger-than-RLIMIT_FSIZE-using-fallocate.patch
+
 # compress modules at make modules_install stage
 Patch200:	compress-kernel-modules-on-installation.patch
 
@@ -437,6 +440,9 @@ pushd %{src_dir}
 
 # alsa: hda_intel: preallocate 4mb dmabuffer
 %patch130 -p1
+
+# Security/bug fixes
+%patch 140 -p1
 
 # compress modules at make modules_install stage
 %patch200 -p1
