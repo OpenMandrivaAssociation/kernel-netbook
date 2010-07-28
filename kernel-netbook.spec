@@ -190,6 +190,7 @@ Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
 # Security/bug fixes
 Patch140:	fs-ext4-Prevent-creation-of-files-larger-than-RLIMIT_FSIZE-using-fallocate.patch
 Patch141:	fs-cifs-fix-a-malicious-redirect-problem-in-the-DNS-lookup-code_CVE-2010-2524.patch
+Patch142:	x86-kernel-Send-a-SIGTRAP-for-user-icebp-traps.patch
 
 # compress modules at make modules_install stage
 Patch200:	compress-kernel-modules-on-installation.patch
@@ -445,6 +446,7 @@ pushd %{src_dir}
 # Security/bug fixes
 %patch140 -p1
 %patch141 -p1
+%patch142 -p1
 
 # compress modules at make modules_install stage
 %patch200 -p1
