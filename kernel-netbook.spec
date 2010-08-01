@@ -173,9 +173,9 @@ Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 # patches to be added on stable updates
 
 # Make boot faster
-Patch107:	linux-2.6.29-retry-root-mount.patch
-Patch108:	linux-2.6.29-dont-wait-for-mouse.patch
-Patch109:	linux-2.6.29-enable-async-by-default.patch
+Patch107:	linux-2.6.35-retry-root-mount.patch
+Patch108:	linux-2.6.35-dont-wait-for-mouse.patch
+Patch109:	linux-2.6.35-enable-async-by-default.patch
 
 Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
 
