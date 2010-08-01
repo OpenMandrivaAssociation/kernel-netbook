@@ -5,13 +5,13 @@
 
 %define kernelversion	2
 %define patchlevel	6
-%define sublevel	33
+%define sublevel	35
 
 # kernel Makefile extraversion is substituted by
 # kpatch/kgit/kstable wich are either 0 (empty), rc (kpatch), git (kgit)
 # or stable release (kstable)
 %define kpatch		0
-%define kstable		6
+%define kstable		0
 
 # kernel.org -gitX patch (only the number after "git")
 %define kgit		0
@@ -177,20 +177,7 @@ Patch107:	linux-2.6.29-retry-root-mount.patch
 Patch108:	linux-2.6.29-dont-wait-for-mouse.patch
 Patch109:	linux-2.6.29-enable-async-by-default.patch
 
-# Nouveau for 2010.1
-Patch120:	gpu-drm-nouveau-git-20100316.patch
-Patch121:	gpu-drm-nouveau-fix-missing-locking.patch
-# Nouveau for 2010.0 backports
-Patch122:       gpu-drm-nouveau-add-nv50-nv8x-nv9x-ctxprogs-generator.patch
-
-Patch125:	net-atl1c-add-support-for-AR8151-AR8152.patch
-
 Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
-
-# Security/bug fixes
-Patch140:	fs-ext4-Prevent-creation-of-files-larger-than-RLIMIT_FSIZE-using-fallocate.patch
-Patch141:	fs-cifs-fix-a-malicious-redirect-problem-in-the-DNS-lookup-code_CVE-2010-2524.patch
-Patch142:	x86-kernel-Send-a-SIGTRAP-for-user-icebp-traps.patch
 
 # compress modules at make modules_install stage
 Patch200:	compress-kernel-modules-on-installation.patch
@@ -427,26 +414,8 @@ pushd %{src_dir}
 %patch108 -p1
 %patch109 -p1
 
-%if %{mdkversion} > 201000
-# nouveau for 2010.1 series
-# update nouveau to git-20100316
-%patch120 -p1
-%patch121 -p1
-%else
-# nouveau for 2010.0 backports
-%patch122 -p1
-%endif
-
-# Atheros AR8151-AR8152 support
-%patch125 -p1
-
 # alsa: hda_intel: preallocate 4mb dmabuffer
 %patch130 -p1
-
-# Security/bug fixes
-%patch140 -p1
-%patch141 -p1
-%patch142 -p1
 
 # compress modules at make modules_install stage
 %patch200 -p1
