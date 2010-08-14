@@ -17,7 +17,7 @@
 %define kgit		0
 
 # this is the releaseversion
-%define mdvrelease 	1
+%define mdvrelease 	2
 
 # This is only to make life easier for people that creates derivated kernels
 # a.k.a name it kernel-tmb :)
@@ -171,6 +171,7 @@ Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 %endif
 
 # patches to be added on stable updates
+Patch50:	mm-fix-page-table-unmap-for-stack-guard-page-properly.patch
 
 # Make boot faster
 Patch107:	linux-2.6.35-retry-root-mount.patch
@@ -417,6 +418,9 @@ pushd %{src_dir}
 %if %kgit
 %patch2 -p1
 %endif
+
+# stable fixes
+%patch50 -p1
 
 # Make boot faster
 %patch107 -p1
