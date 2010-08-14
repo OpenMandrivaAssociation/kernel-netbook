@@ -177,7 +177,11 @@ Patch107:	linux-2.6.35-retry-root-mount.patch
 Patch108:	linux-2.6.35-dont-wait-for-mouse.patch
 Patch109:	linux-2.6.35-enable-async-by-default.patch
 
+# Alsa
 Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
+
+# Samsung-laptop updates
+Patch140:	staging-samsung-laptop-merge-samsung-backlight.patch
 
 # compress modules at make modules_install stage
 Patch200:	compress-kernel-modules-on-installation.patch
@@ -408,14 +412,16 @@ pushd %{src_dir}
 %patch2 -p1
 %endif
 
-# extra patches
-
+# Make boot faster
 %patch107 -p1
 %patch108 -p1
 %patch109 -p1
 
 # alsa: hda_intel: preallocate 4mb dmabuffer
 %patch130 -p1
+
+# merge samsung-backligt with samsung-laptop
+%patch140 -p1
 
 # compress modules at make modules_install stage
 %patch200 -p1
