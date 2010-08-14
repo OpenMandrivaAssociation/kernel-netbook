@@ -172,9 +172,6 @@ Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 
 # patches to be added on stable updates
 
-# fixes excessive wakeups in 2.6.35
-Patch50: 	kernel-sched-Revert-nohz_ratelimit.patch
-
 # Make boot faster
 Patch107:	linux-2.6.35-retry-root-mount.patch
 Patch108:	linux-2.6.35-dont-wait-for-mouse.patch
@@ -410,9 +407,6 @@ pushd %{src_dir}
 %if %kgit
 %patch2 -p1
 %endif
-
-# fixes excessive wakeups
-%patch50 -p1
 
 # extra patches
 
