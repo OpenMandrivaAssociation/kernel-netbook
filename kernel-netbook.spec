@@ -183,6 +183,9 @@ Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
 # Samsung-laptop updates
 Patch140:	staging-samsung-laptop-merge-samsung-backlight.patch
 
+# Lenovo Ideapad
+Patch145:	platform-x86-add-lenovo-ideapad.patch
+
 # compress modules at make modules_install stage
 Patch200:	compress-kernel-modules-on-installation.patch
 
@@ -422,6 +425,9 @@ pushd %{src_dir}
 
 # merge samsung-backligt with samsung-laptop
 %patch140 -p1
+
+# Lenovo Ideapad
+%patch145 -p1
 
 # compress modules at make modules_install stage
 %patch200 -p1
