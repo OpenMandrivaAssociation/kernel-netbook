@@ -180,8 +180,9 @@ Patch109:	linux-2.6.35-enable-async-by-default.patch
 # Alsa
 Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
 
-# Samsung-laptop updates
-Patch140:	staging-samsung-laptop-merge-samsung-backlight.patch
+# Samsung-backlight
+Patch140:	platform-x86-add-samsung-backlight-driver.patch
+Patch141:	platform-x86-add-samsung-backlight-driver-2.6.35-buildfix.patch
 
 # Lenovo Ideapad
 Patch145:	platform-x86-add-lenovo-ideapad.patch
@@ -423,8 +424,9 @@ pushd %{src_dir}
 # alsa: hda_intel: preallocate 4mb dmabuffer
 %patch130 -p1
 
-# merge samsung-backligt with samsung-laptop
+# samsung-backligt
 %patch140 -p1
+%patch141 -p1
 
 # Lenovo Ideapad
 %patch145 -p1
