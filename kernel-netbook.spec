@@ -591,7 +591,8 @@ chmod -R a+rX %{target_source}
 
 # first architecture files
 for i in alpha arm avr32 blackfin cris frv h8300 ia64 mips m32r m68k m68knommu \
-	 microblaze mn10300 parisc powerpc ppc score sh sh64 s390 sparc v850 xtensa; do
+	 microblaze mn10300 parisc powerpc ppc score sh sh64 s390 sparc tile \
+	 v850 xtensa; do
 	rm -rf %{target_source}/arch/$i
 
 %if %build_devel
