@@ -184,11 +184,6 @@ Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
 Patch140:	platform-x86-add-samsung-backlight-driver.patch
 Patch141:	platform-x86-add-samsung-backlight-driver-2.6.35-buildfix.patch
 
-# Lenovo Ideapad
-Patch145:	platform-x86-add-lenovo-ideapad.patch
-Patch146:	platform-lenovo-ideapad-Only-allow-camera-state-to-be-set-to-0-or-1.patch
-Patch147:	platform-lenovo-ideapad-Stop-using-global-variables.patch
-
 # compress modules at make modules_install stage
 Patch200:	compress-kernel-modules-on-installation.patch
 
@@ -431,11 +426,6 @@ pushd %{src_dir}
 # samsung-backligt
 %patch140 -p1
 %patch141 -p1
-
-# Lenovo Ideapad
-%patch145 -p1
-%patch146 -p1
-%patch147 -p1
 
 # compress modules at make modules_install stage
 %patch200 -p1
