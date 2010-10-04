@@ -171,6 +171,7 @@ Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 %endif
 
 # patches to be added on stable updates
+Patch50:	gpu-drm-intel-git-fixes.patch
 
 # Make boot faster
 Patch107:	linux-2.6.35-retry-root-mount.patch
@@ -413,6 +414,7 @@ pushd %{src_dir}
 %endif
 
 # stable fixes
+%patch50 -p1
 
 # Make boot faster
 %patch107 -p1
