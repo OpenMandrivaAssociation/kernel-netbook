@@ -175,7 +175,6 @@ Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 # Make boot faster
 Patch107:	linux-2.6.35-retry-root-mount.patch
 Patch108:	linux-2.6.35-dont-wait-for-mouse.patch
-Patch109:	linux-2.6.35-enable-async-by-default.patch
 
 # Alsa
 Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
@@ -418,7 +417,6 @@ pushd %{src_dir}
 # Make boot faster
 %patch107 -p1
 %patch108 -p1
-%patch109 -p1
 
 # alsa: hda_intel: preallocate 4mb dmabuffer
 %patch130 -p1
