@@ -10,7 +10,7 @@
 # kernel Makefile extraversion is substituted by
 # kpatch/kgit/kstable wich are either 0 (empty), rc (kpatch), git (kgit)
 # or stable release (kstable)
-%define kpatch		rc6
+%define kpatch		rc7
 %define kstable		0
 
 # kernel.org -gitX patch (only the number after "git")
@@ -171,7 +171,6 @@ Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 %endif
 
 # patches to be added on stable updates
-Patch50:	gpu-drm-intel-git-fixes.patch
 
 # Make boot faster
 Patch107:	linux-2.6.35-retry-root-mount.patch
@@ -414,7 +413,6 @@ pushd %{src_dir}
 %endif
 
 # stable fixes
-%patch50 -p1
 
 # Make boot faster
 %patch107 -p1
