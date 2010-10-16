@@ -178,7 +178,7 @@ Patch108:	linux-2.6.35-dont-wait-for-mouse.patch
 
 # Alsa
 Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
-Patch131:	sound-pci-hda-patch_sigmatel-fix-master-playback-volume-mute.patch
+Patch131:	sound-alsa-hda-sigmatel-work-around-incorrect-master-muting.patch
 
 # Samsung-backlight
 Patch140:	platform-x86-add-samsung-backlight-driver.patch
