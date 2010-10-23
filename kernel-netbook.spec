@@ -180,6 +180,7 @@ Patch108:	linux-2.6.35-dont-wait-for-mouse.patch
 Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
 Patch131:	sound-alsa-hda-sigmatel-work-around-incorrect-master-muting.patch
 Patch132:	sound-alsa-hda-sigmatel-Fix-wrong-TLV-mute-bit-for-STAC_IDT-codecs.patch
+Patch133:	sound-alsa-tlv-Define-numbers-in-sound-tlv.h.patch
 
 # Samsung-backlight
 Patch140:	platform-x86-add-samsung-backlight-driver.patch
@@ -423,6 +424,7 @@ pushd %{src_dir}
 # alsa: patch_sigmatel: fix master volume mute (cg)
 %patch131 -p1
 %patch132 -p1
+%patch133 -p1
 
 # samsung-backligt
 %patch140 -p1
