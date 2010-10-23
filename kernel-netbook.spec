@@ -176,6 +176,9 @@ Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 Patch107:	linux-2.6.35-retry-root-mount.patch
 Patch108:	linux-2.6.35-dont-wait-for-mouse.patch
 
+# block fixes
+Patch120:	block-cfq-improve-fsync-performance-for-small-files.patch
+
 # Alsa
 Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
 Patch131:	sound-alsa-hda-sigmatel-work-around-incorrect-master-muting.patch
@@ -418,6 +421,9 @@ pushd %{src_dir}
 # Make boot faster
 %patch107 -p1
 %patch108 -p1
+
+# cfq fsync performance fix
+%patch120 -p1
 
 # alsa: hda_intel: preallocate 4mb dmabuffer
 %patch130 -p1
