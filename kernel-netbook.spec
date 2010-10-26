@@ -190,6 +190,7 @@ Patch136:	sound-alsa-hda-Fix-codec-muted-after-rebooting-from-Windows.patch
 Patch137:	sound-alsa-hda-Add-workarounds-for-CT-IBG-controllers.patch
 Patch138:	sound-alsa-hda-Add-some-workarounds-for-Creative-IBG.patch
 Patch139:	sound-alsa-hda-Fix-wrong-SPDIF-NID-assignment-for-CA0110.patch
+Patch150:	sound-alsa-hda-add-Vortex86MX-PCI-ids.patch
 
 # Samsung-backlight
 Patch140:	platform-x86-add-samsung-backlight-driver.patch
@@ -440,6 +441,7 @@ pushd %{src_dir}
 %patch134 -p1
 # more alsa fixes
 %patch135 -p1
+%patch150 -p1
 %patch136 -p1
 %patch137 -p1
 %patch138 -p1
