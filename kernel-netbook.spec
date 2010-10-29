@@ -196,6 +196,13 @@ Patch150:	sound-alsa-hda-add-Vortex86MX-PCI-ids.patch
 Patch140:	platform-x86-add-samsung-backlight-driver.patch
 Patch141:	platform-x86-add-samsung-backlight-driver-2.6.35-buildfix.patch
 
+# selected radeon fixes from upstream
+Patch160:	gpu-drm-radeon-kms-make-sure-blit-addr-masks-are-64-bit.patch
+Patch161:	gpu-drm-radeon-kms-fix-2D-tile-height-alignment-in-the-r600-CS-checker.patch
+Patch162:	gpu-drm-radeon-kms-MC-vram-map-needs-to-be-bigger-than-pci-aperture-size.patch
+Patch163:	gpu-drm-radeon-kms-properly-compute-group_size-on-6xx-7xx.patch
+Patch164:	gpu-drm-radeon-kms-fix-handling-of-tex-lookup-disable-in-cs-checker-on-r2xx.patch
+
 # compress modules at make modules_install stage
 Patch200:	compress-kernel-modules-on-installation.patch
 
@@ -450,6 +457,13 @@ pushd %{src_dir}
 # samsung-backligt
 %patch140 -p1
 %patch141 -p1
+
+# selected radeon fixes from upstream
+%patch160 -p1
+%patch161 -p1
+%patch162 -p1
+%patch163 -p1
+%patch164 -p1
 
 # compress modules at make modules_install stage
 %patch200 -p1
