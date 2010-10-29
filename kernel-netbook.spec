@@ -17,7 +17,7 @@
 %define kgit		0
 
 # this is the releaseversion
-%define mdvrelease 	1
+%define mdvrelease 	2
 
 # This is only to make life easier for people that creates derivated kernels
 # a.k.a name it kernel-tmb :)
@@ -202,6 +202,12 @@ Patch161:	gpu-drm-radeon-kms-fix-2D-tile-height-alignment-in-the-r600-CS-checker
 Patch162:	gpu-drm-radeon-kms-MC-vram-map-needs-to-be-bigger-than-pci-aperture-size.patch
 Patch163:	gpu-drm-radeon-kms-properly-compute-group_size-on-6xx-7xx.patch
 Patch164:	gpu-drm-radeon-kms-fix-handling-of-tex-lookup-disable-in-cs-checker-on-r2xx.patch
+
+# FireWire (JuJu) fixes
+Patch170:	firewire-ohci-fix-buffer-overflow-in-AR-split-packet-handling.patch
+Patch171:	firewire-ohci-fix-race-in-AR-split-packet-handling.patch
+Patch172:	firewire-ohci-avoid-reallocation-of-AR-buffers.patch
+Patch173:	firewire-ohci-fix-race-when-reading-count-in-AR-descriptor.patch
 
 # compress modules at make modules_install stage
 Patch200:	compress-kernel-modules-on-installation.patch
@@ -464,6 +470,12 @@ pushd %{src_dir}
 %patch162 -p1
 %patch163 -p1
 %patch164 -p1
+
+# firewire fixes
+%patch170 -p1
+%patch171 -p1
+%patch172 -p1
+%patch173 -p1
 
 # compress modules at make modules_install stage
 %patch200 -p1
