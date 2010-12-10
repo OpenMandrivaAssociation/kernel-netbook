@@ -200,7 +200,18 @@ Patch200:	compress-kernel-modules-on-installation.patch
 ####################################################################
 
 # Defines for the things that are needed for all the kernels
+# We require module-init-tools >= 3.6-12 to enable both old and new (juju)
+# firewire stacks and blacklist old stack in module-init-tools. But for
+# backports, lets just disable new firewire stack for now, and thus avoid
+# requiring new module-init-tools. When we update to a kernel version which
+# removes old firewire stack, we can remove this check, and revert to require
+# only old module-init-tools version, and remove blacklist from newer
+# module-init-tools versions
+%if %{mdkversion} < 201100
+%define requires1 module-init-tools >= 3.0-7
+%else
 %define requires1 module-init-tools >= 3.6-12
+%endif
 %define requires2 mkinitrd >= 3.4.43-10
 %define requires3 bootloader-utils >= 1.9
 %define requires4 sysfsutils
@@ -456,7 +467,15 @@ pushd %{src_dir}
 
 # Install defconfigs...
 install %{SOURCE20} arch/x86/configs/
-install %{SOURCE21} arch/x86/configs/
+install %{SOURCE21} 
+
+# Make kernel packages backportable
+%if %{mdkversion} < 201100
+# disable new firewire stack for distros < 2011.0
+sed -i 's/\(CONFIG_FIREWIRE\)=m/# \1 is not set/' \
+       arch/x86/configs/*defconfig
+%endif
+
 
 # make sure the kernel has the sublevel we know it has...
 LC_ALL=C perl -p -i -e "s/^SUBLEVEL.*/SUBLEVEL = %{sublevel}/" Makefile
