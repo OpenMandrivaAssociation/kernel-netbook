@@ -195,6 +195,10 @@ Patch173:	firewire-ohci-fix-race-when-reading-count-in-AR-descriptor.patch
 Patch174:	firewire-ohci-fix-regression-with-VIA-VT6315-disable-MSI.patch
 Patch175:	firewire-ohci-fix-regression-with-Agere-FW643-rev-06-disable-MSI.patch
 
+# unix socket OOM DOS (CVE-2010-4249)
+Patch180:	net-af_unix-limit-unix_tot_inflight.patch
+Patch181:	net-af_unix-limit-recursion-level.patch
+
 # compress modules at make modules_install stage
 Patch200:	compress-kernel-modules-on-installation.patch
 
@@ -458,6 +462,10 @@ pushd %{src_dir}
 %patch173 -p1
 %patch174 -p1
 %patch175 -p1
+
+# unix socket OOM DOS (CVE-2010-4249)
+%patch180 -p1
+%patch181 -p1
 
 # compress modules at make modules_install stage
 %patch200 -p1
