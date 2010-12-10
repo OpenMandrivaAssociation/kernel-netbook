@@ -184,28 +184,12 @@ Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
 Patch131:	sound-alsa-hda-sigmatel-work-around-incorrect-master-muting.patch
 Patch132:	sound-alsa-hda-sigmatel-Fix-wrong-TLV-mute-bit-for-STAC_IDT-codecs.patch
 Patch133:	sound-alsa-tlv-Define-numbers-in-sound-tlv.h.patch
-Patch134:	sound-alsa-hda-Disable-sticky-PCM-stream-assignment-for-AD-codecs.patch
-Patch135:	sound-alsa-OSS-mixer-emulation-fix-locking.patch
-Patch136:	sound-alsa-hda-Fix-codec-muted-after-rebooting-from-Windows.patch
-Patch137:	sound-alsa-hda-Add-workarounds-for-CT-IBG-controllers.patch
-Patch138:	sound-alsa-hda-Add-some-workarounds-for-Creative-IBG.patch
-Patch139:	sound-alsa-hda-Fix-wrong-SPDIF-NID-assignment-for-CA0110.patch
-Patch150:	sound-alsa-hda-add-Vortex86MX-PCI-ids.patch
 
 # Samsung-backlight
 Patch140:	platform-x86-add-samsung-backlight-driver.patch
 Patch141:	platform-x86-add-samsung-backlight-driver-2.6.35-buildfix.patch
 
-# selected radeon fixes from upstream
-Patch160:	gpu-drm-radeon-kms-make-sure-blit-addr-masks-are-64-bit.patch
-Patch161:	gpu-drm-radeon-kms-fix-2D-tile-height-alignment-in-the-r600-CS-checker.patch
-Patch162:	gpu-drm-radeon-kms-MC-vram-map-needs-to-be-bigger-than-pci-aperture-size.patch
-Patch163:	gpu-drm-radeon-kms-properly-compute-group_size-on-6xx-7xx.patch
-Patch164:	gpu-drm-radeon-kms-fix-handling-of-tex-lookup-disable-in-cs-checker-on-r2xx.patch
-
 # FireWire (JuJu) fixes
-Patch170:	firewire-ohci-fix-buffer-overflow-in-AR-split-packet-handling.patch
-Patch171:	firewire-ohci-fix-race-in-AR-split-packet-handling.patch
 Patch172:	firewire-ohci-avoid-reallocation-of-AR-buffers.patch
 Patch173:	firewire-ohci-fix-race-when-reading-count-in-AR-descriptor.patch
 
@@ -451,29 +435,12 @@ pushd %{src_dir}
 %patch131 -p1
 %patch132 -p1
 %patch133 -p1
-%patch134 -p1
-# more alsa fixes
-%patch135 -p1
-%patch150 -p1
-%patch136 -p1
-%patch137 -p1
-%patch138 -p1
-%patch139 -p1
 
 # samsung-backligt
 %patch140 -p1
 %patch141 -p1
 
-# selected radeon fixes from upstream
-%patch160 -p1
-%patch161 -p1
-%patch162 -p1
-%patch163 -p1
-%patch164 -p1
-
 # firewire fixes
-%patch170 -p1
-%patch171 -p1
 %patch172 -p1
 %patch173 -p1
 
