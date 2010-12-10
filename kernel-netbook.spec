@@ -192,6 +192,8 @@ Patch141:	platform-x86-add-samsung-backlight-driver-2.6.35-buildfix.patch
 # FireWire (JuJu) fixes
 Patch172:	firewire-ohci-avoid-reallocation-of-AR-buffers.patch
 Patch173:	firewire-ohci-fix-race-when-reading-count-in-AR-descriptor.patch
+Patch174:	firewire-ohci-fix-regression-with-VIA-VT6315-disable-MSI.patch
+Patch175:	firewire-ohci-fix-regression-with-Agere-FW643-rev-06-disable-MSI.patch
 
 # compress modules at make modules_install stage
 Patch200:	compress-kernel-modules-on-installation.patch
@@ -454,6 +456,8 @@ pushd %{src_dir}
 # firewire fixes
 %patch172 -p1
 %patch173 -p1
+%patch174 -p1
+%patch175 -p1
 
 # compress modules at make modules_install stage
 %patch200 -p1
