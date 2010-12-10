@@ -183,6 +183,9 @@ Patch111:	kernel-sched-automated-per-session-task-groups-20101130.patch
 # block fixes
 Patch120:	block-cfq-improve-fsync-performance-for-small-files.patch
 
+# dm-crypt multicore scaling
+Patch125:	dm-crypt-scale-to-multiple-CPUs-v5-2.6.36.patch
+
 # Alsa
 Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
 Patch131:	sound-alsa-hda-sigmatel-work-around-incorrect-master-muting.patch
@@ -453,6 +456,9 @@ pushd %{src_dir}
 
 # cfq fsync performance fix
 %patch120 -p1
+
+# dm-crypt multicore scaling
+%patch125 -p1
 
 # alsa: hda_intel: preallocate 4mb dmabuffer
 %patch130 -p1
