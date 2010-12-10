@@ -471,7 +471,7 @@ pushd %{src_dir}
 
 # Install defconfigs...
 install %{SOURCE20} arch/x86/configs/
-install %{SOURCE21} 
+install %{SOURCE21} arch/x86/configs/
 
 # Make kernel packages backportable
 %if %{mdkversion} < 201100
