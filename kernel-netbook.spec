@@ -176,6 +176,10 @@ Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 Patch107:	linux-2.6.35-retry-root-mount.patch
 Patch108:	linux-2.6.35-dont-wait-for-mouse.patch
 
+# automated per session task groups
+Patch110:	kernel-cgroup-fixup-broken-cgroup-movement.patch
+Patch111:	kernel-sched-automated-per-session-task-groups-20101130.patch
+
 # block fixes
 Patch120:	block-cfq-improve-fsync-performance-for-small-files.patch
 
@@ -442,6 +446,10 @@ pushd %{src_dir}
 # Make boot faster
 %patch107 -p1
 %patch108 -p1
+
+# automated per session task groups
+%patch110 -p1
+%patch111 -p1
 
 # cfq fsync performance fix
 %patch120 -p1
