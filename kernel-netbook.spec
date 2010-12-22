@@ -179,6 +179,10 @@ Patch108:	linux-2.6.35-dont-wait-for-mouse.patch
 # automated per session task groups
 Patch110:	kernel-cgroup-fixup-broken-cgroup-movement.patch
 Patch111:	kernel-sched-automated-per-session-task-groups-20101130.patch
+Patch112:	kernel-sched-fix-potential-access-to-freed-memory.patch
+Patch113:	kernel-sched-fix-skip_clock_update-optimization.patch
+# nohz load average fix
+Patch114:	kernel-sched-Cure-more-NO_HZ-load-average-woes.patch
 
 # block fixes
 Patch120:	block-cfq-improve-fsync-performance-for-small-files.patch
@@ -453,6 +457,10 @@ pushd %{src_dir}
 # automated per session task groups
 %patch110 -p1
 %patch111 -p1
+%patch112 -p1
+%patch113 -p1
+# nohz load average fix
+%patch114 -p1
 
 # cfq fsync performance fix
 %patch120 -p1
