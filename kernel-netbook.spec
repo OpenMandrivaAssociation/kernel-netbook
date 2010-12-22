@@ -200,6 +200,12 @@ Patch133:	sound-alsa-tlv-Define-numbers-in-sound-tlv.h.patch
 Patch140:	platform-x86-add-samsung-backlight-driver.patch
 Patch141:	platform-x86-add-samsung-backlight-driver-2.6.35-buildfix.patch
 
+# gpu fixes
+Patch150:	gpu-drm-radeon-kms-don-t-apply-7xx-hdp-flush-workaround-on-agp.patch
+Patch151:	gpu-drm-kms-remove-spaces-from-connector-names-v2.patch
+Patch152:	gpu-drm-radeon-kms-fix-vram-base-calculation-on-rs780-rs880.patch
+Patch153:	gpu-drm-i915-always-set-the-dp-transcoder-config-to-8bpc.patch
+
 # FireWire (JuJu) fixes
 Patch172:	firewire-ohci-avoid-reallocation-of-AR-buffers.patch
 Patch173:	firewire-ohci-fix-race-when-reading-count-in-AR-descriptor.patch
@@ -478,6 +484,12 @@ pushd %{src_dir}
 # samsung-backligt
 %patch140 -p1
 %patch141 -p1
+
+# gpu fixes
+%patch150 -p1
+%patch151 -p1
+%patch152 -p1
+%patch153 -p1
 
 # firewire fixes
 %patch172 -p1
