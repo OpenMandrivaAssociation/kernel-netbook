@@ -17,7 +17,7 @@
 %define kgit		0
 
 # this is the releaseversion
-%define mdvrelease 	1
+%define mdvrelease 	2
 
 # This is only to make life easier for people that creates derivated kernels
 # a.k.a name it kernel-tmb :)
@@ -205,6 +205,9 @@ Patch150:	gpu-drm-radeon-kms-don-t-apply-7xx-hdp-flush-workaround-on-agp.patch
 Patch151:	gpu-drm-kms-remove-spaces-from-connector-names-v2.patch
 Patch152:	gpu-drm-radeon-kms-fix-vram-base-calculation-on-rs780-rs880.patch
 Patch153:	gpu-drm-i915-always-set-the-dp-transcoder-config-to-8bpc.patch
+
+# framebuffer fix
+Patch155:	video-fb-fix-unregister_framebuffer-fb_destroy.patch
 
 # FireWire (JuJu) fixes
 Patch172:	firewire-ohci-avoid-reallocation-of-AR-buffers.patch
@@ -490,6 +493,9 @@ pushd %{src_dir}
 %patch151 -p1
 %patch152 -p1
 %patch153 -p1
+
+# framebuffer fix
+%patch155 -p1
 
 # firewire fixes
 %patch172 -p1
