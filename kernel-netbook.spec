@@ -5,19 +5,19 @@
 
 %define kernelversion	2
 %define patchlevel	6
-%define sublevel	36
+%define sublevel	37
 
 # kernel Makefile extraversion is substituted by
 # kpatch/kgit/kstable wich are either 0 (empty), rc (kpatch), git (kgit)
 # or stable release (kstable)
-%define kpatch		0
-%define kstable		2
+%define kpatch		rc8
+%define kstable		0
 
 # kernel.org -gitX patch (only the number after "git")
-%define kgit		0
+%define kgit		1
 
 # this is the releaseversion
-%define mdvrelease 	2
+%define mdvrelease 	1
 
 # This is only to make life easier for people that creates derivated kernels
 # a.k.a name it kernel-tmb :)
@@ -135,8 +135,6 @@ Source1:        ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 
 # This is for disabling mrproper and other targets on -devel rpms
 Source2:	disable-mrproper-in-devel-rpms.patch
-# This disables removal of bounds.h and asm-offsets.h in -devel rpms
-Source3:	kbuild-really-dont-remove-bounds-asm-offsets-headers.patch
 
 Source4:  	README.kernel-sources
 Source5:  	README.MandrivaLinux
@@ -173,71 +171,34 @@ Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 # patches to be added on stable updates
 
 # Make boot faster
-Patch107:	linux-2.6.35-retry-root-mount.patch
-Patch108:	linux-2.6.35-dont-wait-for-mouse.patch
+Patch107:	linux-2.6.37-retry-root-mount.patch
+Patch108:	linux-2.6.37-dont-wait-for-mouse.patch
 
 # automated per session task groups
-Patch110:	kernel-cgroup-fixup-broken-cgroup-movement.patch
 Patch111:	kernel-sched-automated-per-session-task-groups-20101130.patch
 Patch112:	kernel-sched-fix-potential-access-to-freed-memory.patch
-Patch113:	kernel-sched-fix-skip_clock_update-optimization.patch
-# nohz load average fix
-Patch114:	kernel-sched-Cure-more-NO_HZ-load-average-woes.patch
-
-# block fixes
-Patch120:	block-cfq-improve-fsync-performance-for-small-files.patch
 
 # dm-crypt multicore scaling
 Patch125:	dm-crypt-scale-to-multiple-CPUs-v5-2.6.36.patch
 
 # Alsa
 Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
-Patch131:	sound-alsa-hda-sigmatel-work-around-incorrect-master-muting.patch
-Patch132:	sound-alsa-hda-sigmatel-Fix-wrong-TLV-mute-bit-for-STAC_IDT-codecs.patch
-Patch133:	sound-alsa-tlv-Define-numbers-in-sound-tlv.h.patch
 
 # Samsung-backlight
 Patch140:	platform-x86-add-samsung-backlight-driver.patch
 Patch141:	platform-x86-add-samsung-backlight-driver-2.6.35-buildfix.patch
 
-# gpu fixes
-Patch150:	gpu-drm-radeon-kms-don-t-apply-7xx-hdp-flush-workaround-on-agp.patch
-Patch151:	gpu-drm-kms-remove-spaces-from-connector-names-v2.patch
-Patch152:	gpu-drm-radeon-kms-fix-vram-base-calculation-on-rs780-rs880.patch
-Patch153:	gpu-drm-i915-always-set-the-dp-transcoder-config-to-8bpc.patch
-
 # framebuffer fix
 Patch155:	video-fb-fix-unregister_framebuffer-fb_destroy.patch
 
-# FireWire (JuJu) fixes
-Patch172:	firewire-ohci-avoid-reallocation-of-AR-buffers.patch
-Patch173:	firewire-ohci-fix-race-when-reading-count-in-AR-descriptor.patch
-Patch174:	firewire-ohci-fix-regression-with-VIA-VT6315-disable-MSI.patch
-Patch175:	firewire-ohci-fix-regression-with-Agere-FW643-rev-06-disable-MSI.patch
-
-# unix socket OOM DOS (CVE-2010-4249)
-Patch180:	net-af_unix-limit-unix_tot_inflight.patch
-Patch181:	net-af_unix-limit-recursion-level.patch
-
 # compress modules at make modules_install stage
-Patch200:	compress-kernel-modules-on-installation.patch
+Patch200:	kbuild-compress-kernel-modules-on-installation.patch
 
 #END
 ####################################################################
 
 # Defines for the things that are needed for all the kernels
-# We require module-init-tools >= 3.6-12 to enable both old and new (juju)
-# firewire stacks and blacklist old stack in module-init-tools. But for
-# backports, lets just disable new firewire stack for now, and thus avoid
-# requiring new module-init-tools. When we update to a kernel version which
-# removes old firewire stack, we can remove this check, and revert to require
-# only old module-init-tools version, and remove blacklist from newer
-# module-init-tools versions
-%if %{mdkversion} < 201100
 %define requires1 module-init-tools >= 3.0-7
-%else
-%define requires1 module-init-tools >= 3.6-12
-%endif
 %define requires2 mkinitrd >= 3.4.43-10
 %define requires3 bootloader-utils >= 1.9
 %define requires4 sysfsutils
@@ -464,48 +425,21 @@ pushd %{src_dir}
 %patch108 -p1
 
 # automated per session task groups
-%patch110 -p1
 %patch111 -p1
 %patch112 -p1
-%patch113 -p1
-# nohz load average fix
-%patch114 -p1
-
-# cfq fsync performance fix
-%patch120 -p1
 
 # dm-crypt multicore scaling
 %patch125 -p1
 
 # alsa: hda_intel: preallocate 4mb dmabuffer
 %patch130 -p1
-# alsa: patch_sigmatel: fix master volume mute (cg)
-%patch131 -p1
-%patch132 -p1
-%patch133 -p1
 
 # samsung-backligt
 %patch140 -p1
 %patch141 -p1
 
-# gpu fixes
-%patch150 -p1
-%patch151 -p1
-%patch152 -p1
-%patch153 -p1
-
 # framebuffer fix
 %patch155 -p1
-
-# firewire fixes
-%patch172 -p1
-%patch173 -p1
-%patch174 -p1
-%patch175 -p1
-
-# unix socket OOM DOS (CVE-2010-4249)
-%patch180 -p1
-%patch181 -p1
 
 # compress modules at make modules_install stage
 %patch200 -p1
@@ -520,14 +454,6 @@ pushd %{src_dir}
 # Install defconfigs...
 install %{SOURCE20} arch/x86/configs/
 install %{SOURCE21} arch/x86/configs/
-
-# Make kernel packages backportable
-%if %{mdkversion} < 201100
-# disable new firewire stack for distros < 2011.0
-sed -i 's/\(CONFIG_FIREWIRE\)=m/# \1 is not set/' \
-       arch/x86/configs/*defconfig
-%endif
-
 
 # make sure the kernel has the sublevel we know it has...
 LC_ALL=C perl -p -i -e "s/^SUBLEVEL.*/SUBLEVEL = %{sublevel}/" Makefile
@@ -628,9 +554,6 @@ cp -fR drivers/media/dvb/frontends/lgdt330x.h %{temp_devel}/drivers/media/dvb/fr
 
 # add acpica header files, needed for fglrx build
 cp -fR drivers/acpi/acpica/*.h %{temp_devel}/drivers/acpi/acpica/
-
-# Disable bounds.h and asm-offsets.h removal
-patch -p1 -d %{temp_devel} -i %{SOURCE3}
 
 # Check and clean the -devel tree
 pushd %{temp_devel} >/dev/null
@@ -868,6 +791,7 @@ exit 0
 %{_kerneldir}/CREDITS
 %{_kerneldir}/Documentation
 %{_kerneldir}/Kbuild
+%{_kerneldir}/Kconfig
 %{_kerneldir}/MAINTAINERS
 %{_kerneldir}/Makefile
 %{_kerneldir}/README
@@ -928,6 +852,7 @@ exit 0
 %{_develdir}/.config
 %{_develdir}/Documentation
 %{_develdir}/Kbuild
+%{_develdir}/Kconfig
 %{_develdir}/Makefile
 %{_develdir}/Module.symvers
 %{_develdir}/arch/Kconfig
