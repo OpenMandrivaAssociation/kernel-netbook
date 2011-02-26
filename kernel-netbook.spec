@@ -11,7 +11,7 @@
 # kpatch/kgit/kstable wich are either 0 (empty), rc (kpatch), git (kgit)
 # or stable release (kstable)
 %define kpatch		0
-%define kstable		0
+%define kstable		2
 
 # kernel.org -gitX patch (only the number after "git")
 %define kgit		0
@@ -177,6 +177,8 @@ Patch108:	linux-2.6.37-dont-wait-for-mouse.patch
 # automated per session task groups
 Patch111:	kernel-sched-automated-per-session-task-groups-20101130.patch
 Patch112:	kernel-sched-fix-potential-access-to-freed-memory.patch
+Patch113:	kernel-sched-autogroup-Fix-reference-leak.patch
+Patch114:	kernel-sched-Fix-struct-autogroup-memory-leak.patch
 
 # dm-crypt multicore scaling
 Patch125:	dm-crypt-scale-to-multiple-CPUs-v5-2.6.36.patch
@@ -189,7 +191,8 @@ Patch140:	platform-x86-add-samsung-backlight-driver.patch
 Patch141:	platform-x86-add-samsung-backlight-driver-2.6.35-buildfix.patch
 
 # framebuffer fix
-Patch155:	video-fb-fix-unregister_framebuffer-fb_destroy.patch
+Patch155:	video-fb-avoid-oops-when-fw-fb-is-removed.patch
+Patch156:	video-fb-avoid-deadlock-caused-by-fb_set_suspend.patch
 
 # compress modules at make modules_install stage
 Patch200:	kbuild-compress-kernel-modules-on-installation.patch
@@ -427,6 +430,8 @@ pushd %{src_dir}
 # automated per session task groups
 %patch111 -p1
 %patch112 -p1
+%patch113 -p1
+%patch114 -p1
 
 # dm-crypt multicore scaling
 %patch125 -p1
@@ -440,6 +445,7 @@ pushd %{src_dir}
 
 # framebuffer fix
 %patch155 -p1
+%patch156 -p1
 
 # compress modules at make modules_install stage
 %patch200 -p1
