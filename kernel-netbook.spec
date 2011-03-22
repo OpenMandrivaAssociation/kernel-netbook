@@ -176,9 +176,8 @@ Patch108:	linux-2.6.37-dont-wait-for-mouse.patch
 # Alsa
 Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
 
-# Samsung-backlight
-Patch140:	platform-x86-add-samsung-backlight-driver.patch
-Patch141:	platform-x86-add-samsung-backlight-driver-2.6.35-buildfix.patch
+# Samsung-laptop
+Patch140:	platform-x86-samsung-laptop.patch
 
 # framebuffer fix
 Patch155:	video-fb-avoid-oops-when-fw-fb-is-removed.patch
@@ -420,9 +419,8 @@ pushd %{src_dir}
 # alsa: hda_intel: preallocate 4mb dmabuffer
 %patch130 -p1
 
-# samsung-backligt
+# samsung-laptop
 %patch140 -p1
-%patch141 -p1
 
 # framebuffer fix
 %patch155 -p1
