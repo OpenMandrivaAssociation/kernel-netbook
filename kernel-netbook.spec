@@ -5,13 +5,13 @@
 
 %define kernelversion	2
 %define patchlevel	6
-%define sublevel	37
+%define sublevel	38
 
 # kernel Makefile extraversion is substituted by
 # kpatch/kgit/kstable wich are either 0 (empty), rc (kpatch), git (kgit)
 # or stable release (kstable)
-%define kpatch		0
-%define kstable		2
+%define kpatch		rc1
+%define kstable		1
 
 # kernel.org -gitX patch (only the number after "git")
 %define kgit		0
@@ -137,7 +137,6 @@ Source1:        ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 Source2:	disable-mrproper-in-devel-rpms.patch
 
 Source4:  	README.kernel-sources
-Source5:  	README.MandrivaLinux
 
 # Kernel defconfigs
 Source20: 	i386_defconfig
@@ -173,15 +172,6 @@ Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 # Make boot faster
 Patch107:	linux-2.6.37-retry-root-mount.patch
 Patch108:	linux-2.6.37-dont-wait-for-mouse.patch
-
-# automated per session task groups
-Patch111:	kernel-sched-automated-per-session-task-groups-20101130.patch
-Patch112:	kernel-sched-fix-potential-access-to-freed-memory.patch
-Patch113:	kernel-sched-autogroup-Fix-reference-leak.patch
-Patch114:	kernel-sched-Fix-struct-autogroup-memory-leak.patch
-
-# dm-crypt multicore scaling
-Patch125:	dm-crypt-scale-to-multiple-CPUs-v5-2.6.36.patch
 
 # Alsa
 Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
@@ -427,15 +417,6 @@ pushd %{src_dir}
 %patch107 -p1
 %patch108 -p1
 
-# automated per session task groups
-%patch111 -p1
-%patch112 -p1
-%patch113 -p1
-%patch114 -p1
-
-# dm-crypt multicore scaling
-%patch125 -p1
-
 # alsa: hda_intel: preallocate 4mb dmabuffer
 %patch130 -p1
 
@@ -586,7 +567,6 @@ cd %src_dir
 ###
 %install
 install -m 644 %{SOURCE4}  .
-install -m 644 %{SOURCE5}  .
 
 cd %src_dir
 # Directories definition needed for installing
@@ -782,7 +762,6 @@ exit 0
 %{_modulesdir}/%{kversion}-%{ktag}-%{buildrpmrel}/kernel
 %{_modulesdir}/%{kversion}-%{ktag}-%{buildrpmrel}/modules.*
 %doc README.kernel-sources
-%doc README.MandrivaLinux
 %endif # build_kernel
 
 # kernel-source
@@ -823,6 +802,7 @@ exit 0
 %{_kerneldir}/include/pcmcia
 %{_kerneldir}/include/scsi
 %{_kerneldir}/include/sound
+%{_kerneldir}/include/target
 %{_kerneldir}/include/trace
 %{_kerneldir}/include/video
 %{_kerneldir}/include/media
@@ -845,7 +825,6 @@ exit 0
 %{_kerneldir}/usr
 %{_kerneldir}/virt
 %doc README.kernel-sources
-%doc README.MandrivaLinux
 %endif # build_source
 
 # kernel-devel
@@ -887,6 +866,7 @@ exit 0
 %{_develdir}/include/rdma
 %{_develdir}/include/scsi
 %{_develdir}/include/sound
+%{_develdir}/include/target
 %{_develdir}/include/trace
 %{_develdir}/include/video
 %{_develdir}/include/media
@@ -906,7 +886,6 @@ exit 0
 %{_develdir}/usr
 %{_develdir}/virt
 %doc README.kernel-sources
-%doc README.MandrivaLinux
 %endif # build_devel
 
 
