@@ -41,18 +41,22 @@
 
 # When we are using a pre/rc patch, the tarball is a sublevel -1
 %if %kpatch
-%define kversion  	%{kernelversion}.%{patchlevel}.%{sublevel}
-%define tar_ver	  	%{kernelversion}.%{patchlevel}.%(expr %{sublevel} - 1)
-%else
 %if %kstable
-%define kversion  	%{kernelversion}.%{patchlevel}.%{sublevel}.%{kstable}
-%define tar_ver   	%{kernelversion}.%{patchlevel}.%{sublevel}
+%define tar_ver         %{kernelversion}.%{patchlevel}.%{sublevel}
 %else
-%define kversion  	%{kernelversion}.%{patchlevel}.%{sublevel}
-%define tar_ver   	%{kversion}
+%define tar_ver         %{kernelversion}.%{patchlevel}.%(expr %{sublevel} - 1)
 %endif
+%define patch_ver       %{kversion}-%{kpatch}-%{ktag}%{mnbrel}
+%else
+%define tar_ver         %{kernelversion}.%{patchlevel}.%{sublevel}
+%define patch_ver       %{kversion}-%{ktag}%{mnbrel}
 %endif
-%define kverrel   	%{kversion}-%{rpmrel}
+%if %kstable
+%define kversion        %{kernelversion}.%{patchlevel}.%{sublevel}.%{kstable}
+%else
+%define kversion        %{kernelversion}.%{patchlevel}.%{sublevel}
+%endif
+%define kverrel         %{kversion}-%{rpmrel}
 
 # used for not making too long names for rpms or search paths
 %if %kpatch
@@ -154,17 +158,29 @@ Source21: 	x86_64_defconfig
 # Pre linus patch: ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchlevel}/testing
 
 %if %kpatch
-Patch1:         ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchlevel}/testing/patch-%{kernelversion}.%{patchlevel}.%{sublevel}-%{kpatch}.bz2
-Source10:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchlevel}/testing/patch-%{kernelversion}.%{patchlevel}.%{sublevel}-%{kpatch}.bz2.sign
-%endif
 %if %kstable
-Patch1:         ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchlevel}/patch-%{kversion}.bz2
-Source10:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchlevel}/patch-%{kversion}.bz2.sign
+Patch2:         ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchlevel}/stable-review/patch-%{kversion}-%{kpatch}.bz2
+Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchlevel}/stable-review/patch-%{kversion}-%{kpatch}.bz2.sign
+%else
+Patch1:         ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchlevel}/testing/patch-%{kversion}-%{kpatch}.bz2
+Source10:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchlevel}/testing/patch-%{kversion}-%{kpatch}.bz2.sign
 %endif
-# kernel.org -git
+%endif
 %if %kgit
 Patch2:         ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchlevel}/snapshots/patch-%{kernelversion}.%{patchlevel}.%{sublevel}-%{kpatch}-git%{kgit}.bz2
 Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchlevel}/snapshots/patch-%{kernelversion}.%{patchlevel}.%{sublevel}-%{kpatch}-git%{kgit}.bz2.sign
+%endif
+%if %kstable
+%if %kpatch
+%define prev_stable %(expr %{kstable} - 1)
+%if %prev_stable
+Patch1:         ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchlevel}/patch-%{kernelversion}.%{patchlevel}.%{sublevel}.%{prev_stable}.bz2
+Source10:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchlevel}/patch-%{kernelversion}.%{patchlevel}.%{sublevel}.%{prev_stable}.bz2.sign
+%endif
+%else
+Patch1:         ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchlevel}/patch-%{kversion}.bz2
+Source10:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchlevel}/patch-%{kversion}.bz2.sign
+%endif
 %endif
 
 # patches to be added on stable updates
@@ -399,11 +415,19 @@ latest %{kname}-devel installed...
 
 pushd %{src_dir}
 
+%if %kstable
+%if %kpatch
+%if %prev_stable
+%patch1 -p1
+%endif
+%patch2 -p1
+%else
+%patch1 -p1
+%endif
+%else
 %if %kpatch
 %patch1 -p1
 %endif
-%if %kstable
-%patch1 -p1
 %endif
 %if %kgit
 %patch2 -p1
