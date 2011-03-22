@@ -170,8 +170,8 @@ Source11:       ftp://ftp.kernel.org/pub/linux/kernel/v%{kernelversion}.%{patchl
 # patches to be added on stable updates
 
 # Make boot faster
-Patch107:	linux-2.6.37-retry-root-mount.patch
-Patch108:	linux-2.6.37-dont-wait-for-mouse.patch
+Patch107:	linux-2.6.38.1-retry-root-mount.patch
+Patch108:	linux-2.6.38.1-dont-wait-for-mouse.patch
 
 # Alsa
 Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
