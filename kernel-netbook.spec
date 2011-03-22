@@ -180,8 +180,7 @@ Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
 Patch140:	platform-x86-samsung-laptop.patch
 
 # framebuffer fix
-Patch155:	video-fb-avoid-oops-when-fw-fb-is-removed.patch
-Patch156:	video-fb-avoid-deadlock-caused-by-fb_set_suspend.patch
+Patch155:	video-fbcon-fix-race-between-open-and-removal-of-framebuffers.patch
 
 # compress modules at make modules_install stage
 Patch200:	kbuild-compress-kernel-modules-on-installation.patch
@@ -424,7 +423,6 @@ pushd %{src_dir}
 
 # framebuffer fix
 %patch155 -p1
-%patch156 -p1
 
 # compress modules at make modules_install stage
 %patch200 -p1
