@@ -194,6 +194,9 @@ Patch130:	sound-alsa-hda_intel-prealloc-4mb-dmabuffer.patch
 
 # Samsung-laptop
 Patch140:	platform-x86-samsung-laptop.patch
+Patch141:	platform-x86-samsung-laptop-make-dmi_check_cb-to-return-1-instead-of-0.patch
+Patch142:	platform-x86-samsung-laptop-add-support-for-N230-model.patch
+Patch143:	platform-x86-samsung-laptop-Samsung-R410P-backlight-driver.patch
 
 # framebuffer fix
 Patch155:	video-fb-avoid-oops-when-fw-fb-is-removed.patch
@@ -445,6 +448,9 @@ pushd %{src_dir}
 
 # samsung-laptop
 %patch140 -p1
+%patch141 -p1
+%patch142 -p1
+%patch143 -p1
 
 # framebuffer fix
 %patch155 -p1
