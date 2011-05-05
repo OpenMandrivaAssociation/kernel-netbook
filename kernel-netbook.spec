@@ -202,6 +202,9 @@ Patch143:	platform-x86-samsung-laptop-Samsung-R410P-backlight-driver.patch
 Patch155:	video-fb-avoid-oops-when-fw-fb-is-removed.patch
 Patch156:	video-fb-avoid-deadlock-caused-by-fb_set_suspend.patch
 
+# fix i915 corruption
+Patch160:	gpu-drm-i915-Fix-tiling-corruption-from-pipelined-fencin.patch
+
 # compress modules at make modules_install stage
 Patch200:	kbuild-compress-kernel-modules-on-installation.patch
 
@@ -455,6 +458,9 @@ pushd %{src_dir}
 # framebuffer fix
 %patch155 -p1
 %patch156 -p1
+
+# fix i915 corruption
+%patch160 -p1
 
 # compress modules at make modules_install stage
 %patch200 -p1
