@@ -730,6 +730,7 @@ popd > /dev/null
 
 %postun -n %{kname}-%{buildrel}
 /sbin/kernel_remove_initrd %{buildrel}
+rm -rf /lib/modules/%{kversion}-%{ktag}-%{buildrpmrel} >/dev/null
 %endif # build_kernel
 
 
