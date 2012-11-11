@@ -1,0 +1,6 @@
+disable-mrproper-in-devel-rpms.patch
+i386_defconfig
+linux-2.6.38.tar.bz2
+linux-2.6.38.tar.bz2.sign
+README.kernel-sources
+x86_64_defconfig

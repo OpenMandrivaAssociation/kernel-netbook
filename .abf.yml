@@ -1,0 +1,7 @@
+sources:
+  "disable-mrproper-in-devel-rpms.patch:"	f3b07904dd54deb94c95fb2be3c62418843183ea
+  "i386_defconfig:"	3ff195ec2b705dde4196e772ac39f8d464509bb6
+  "linux-2.6.38.tar.bz2:"	02aade5ad3dedd70739c9b4a05de40edbe432d25
+  "linux-2.6.38.tar.bz2.sign:"	f808f3363dab5534418c1a0f14c085ec8ce740c3
+  "README.kernel-sources:"	a99423be3b915afdad9633b0fa4ab6af139ada36
+  "x86_64_defconfig:"	08e0c2533564cfeb1bef29212ec392a1b167d61e
