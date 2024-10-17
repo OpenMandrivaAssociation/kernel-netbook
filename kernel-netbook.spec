@@ -127,7 +127,7 @@ License: 	GPLv2
 Group: 		System/Kernel and hardware
 ExclusiveArch: 	%{ix86} x86_64
 ExclusiveOS: 	Linux
-URL:		http://wiki.mandriva.com/en/Docs/Howto/Manbo_Kernels#kernel-netbook
+URL:		https://wiki.mandriva.com/en/Docs/Howto/Manbo_Kernels#kernel-netbook
 
 ####################################################################
 #
