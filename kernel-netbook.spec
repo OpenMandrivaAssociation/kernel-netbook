@@ -27,17 +27,17 @@
 %define rpmtag		%distsuffix
 %if %kpatch
 %if %kgit
-%define rpmrel		%mkrel 0.%{kpatch}.%{kgit}.%{mdvrelease}
+%define rpmrel		0.%{kpatch.1}.%{kgit}.%{mdvrelease}
 %else
-%define rpmrel		%mkrel 0.%{kpatch}.%{mdvrelease}
+%define rpmrel		0.%{kpatch.1}.%{mdvrelease}
 %endif
 %else
-%define rpmrel		%mkrel %{mdvrelease}
+%define rpmrel		%{mdvrelease.1}
 %endif
 
 # theese two never change, they are used to fool rpm/urpmi/smart
 %define fakever		1
-%define fakerel		%mkrel 1
+%define fakerel		2
 
 # When we are using a pre/rc patch, the tarball is a sublevel -1
 %if %kpatch
